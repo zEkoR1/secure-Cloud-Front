@@ -1,0 +1,113 @@
+.sidebarDiv {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--side-bar-color);
+    height: 100%;
+    width: 24.1rem; /* Ensure the width matches */
+    z-index: 1000;
+    transition: transform 0.5s ease;
+  }
+  
+  .closed {
+    transform: translateX(-97%);
+
+  }
+  
+  .sectionName {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin: 0;
+    margin-left: 1rem;
+    padding: 0;
+  }
+  .hidden {
+    display: none;
+  }
+  
+  .sectionName::first-letter {
+    font-family: "Meddon", "Jost";
+    margin: 0;
+    font-size: 3.1rem;
+  }
+  
+  .upperPart {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .verticalDivider {
+    width: 1px;
+    margin: 0;
+    padding: 0;
+    height: 1.5rem;
+    background-color: var(--text-color);
+  }
+  
+  .buttonGroup {
+    display: flex;
+    margin-right: 0.6rem;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .horizontalDivider {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--text-color);
+  }
+  
+  .selectBar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+    margin-right: .6rem;
+  }
+  
+  .closeButtonContainer {
+    position: absolute;
+    top: 50%;
+    right: -0.8rem;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .verticalLine {
+    width: 4px; /* Adjust width to make it a vertical line */
+    height: 15rem; /* Adjust height as needed */
+    background-color: var(--text-color);
+    margin: 3rem 0;
+    border-radius: 4px;
+  }
+  .bottom{
+    margin: 4.5rem 0;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--text-color);
+    transition: transform 0.5s ease;
+    width: 1.5rem;
+    height: 1.5rem;
+    z-index: 1010;
+    transform-origin: center;
+  }
+  
+  .closeButtonOpen {
+    transform: scaleX(-1); /* Default direction for open state */
+  }
+  
+  .closeButtonClosed {
+    transform: scaleX(1); /* Rotated direction for closed state */
+  }
+  

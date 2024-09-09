@@ -1,0 +1,33 @@
+.button {
+    padding: .5rem 2.5rem;
+    border-radius: 34px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; 
+}
+.buttonDiv {
+    display: flex;
+    position:relative;
+    align-self: center;
+}
+.logo {
+    width: 2.5rem; 
+    height: 2.5rem;  
+}
+.textButton {
+    /* margin-top: .4rem; */
+    outline: none;
+    color: var(--text-color);
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    background-color:  transparent;
+    /* border-bottom: 2px solid #000;  */
+    text-decoration: underline ;
+    text-decoration-thickness: 2px;
+  }

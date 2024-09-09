@@ -1,0 +1,36 @@
+:root {
+  --background-color: #d9d9d9;
+  --text-color: #000000;
+  --divider-color: #000;
+  --button-background-color: #727272;
+  --button-text-color: #ffffff;
+  --input-background-color: #ffffff;
+  --input-text-color: #000000;
+  --side-bar-color: #e9e9e9;
+}
+
+.dark-theme {
+  --background-color: #3e3e3e;
+  --text-color: #ffffff;
+  --divider-color: #ffffff;
+  --button-background-color: #b5b5b5;
+  --button-text-color: #000000;
+  --input-background-color: #555555;
+  --input-text-color: #ffffff;
+  --side-bar-color: #555555;
+}
+
+body {
+  /* background-color: var(--background-color); */
+  color: var(--text-color);
+  font-family: "Jost", sans-serif;
+}
+
+.mainContent {
+  margin-left: 24.1rem; /* Adjust this value to match the sidebar width */
+  /* padding: 1rem; */
+  width: calc(
+    100% - 24.1rem
+  ); /* Adjust this value to match the sidebar width */
+  position: relative;
+}

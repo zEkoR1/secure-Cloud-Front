@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  font-family: "Jost", sans-serif;
+}
+.input-container {
+  position: relative;
+}
+
+.input {
+  padding: 10px 90px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  font-family: sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: 0.2px solid black;
+}
+
+.input + label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.input:focus + label,
+.input:not(:placeholder-shown) + label {
+  top: 6px;
+  left: 12px;
+  font-size: 12px;
+  color: grey;
+  transform: translateY(-50%) scale(1);
+}
+.toggle-button {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.toggle-button:focus {
+  outline: none;
+}
+.welcome {
+    font-size: 72px;
+    color:#000000
+}
