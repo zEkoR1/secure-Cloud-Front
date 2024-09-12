@@ -1,0 +1,24 @@
+.settingsPopup {
+  color: var(--text-color);
+  border: none;
+  background: none;
+  margin-right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+.settingsPopup::after {
+  display: none !important;
+}
+.dropDownMenu  {
+    background-color: var(--background-color)!important;
+}
+.dropdownitem {
+    color: var(--text-color) !important;
+  }
+  
+  /* Hover effect for dropdown items */
+  .dropdownitem:hover {
+    background-color: var(--side-bar-color) !important;
+    color: var(--popup-hover-text-color) !important; /* Adjust if needed */
+  }

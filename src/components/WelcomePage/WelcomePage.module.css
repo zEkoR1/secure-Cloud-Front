@@ -1,0 +1,73 @@
+/* General Page Styling */
+.welcomePage {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 2s ease, color 2s ease; /* Smooth transition */
+
+  }
+  
+  /* Light Theme Styles */
+  .light {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.6) 40%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      var(--light-bg);
+    --text-color: #000000;
+    transition: background 0.5s ease, color 0.5s ease; /* Smooth transition for background and text */
+  }
+  
+  .dark {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      var(--dark-bg);
+    --text-color: #ffffff;
+    transition: background 0.5s ease, color 0.5s ease; /* Smooth transition for background and text */
+  }
+  
+  /* Button Styles */
+  .buttonJoin {
+    background-color: #0db087;
+    color: white;
+    padding: 6px 60px;
+    border-radius: 36px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover and scale transition */  }
+  
+  .buttonJoin:hover {
+    background-color: #0a8463; /* Slightly darker color on hover */
+    /* transition-delay: 1s; */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+  }
+  
+  /* Text Styling */
+  .welcomeH {
+    color: var(--text-color);
+    font-size: 58px;
+    line-height: 67px;
+    transition: color 0.5s ease; /* Smooth text color transition */
+  }
+  
+  /* Button Container Styling */
+  .buttonDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 22.125rem;
+    margin-left: 9.313rem;
+  }
+  

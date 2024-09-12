@@ -1,6 +1,6 @@
 import styles from "./Button.module.css";
-export default function TextButton ({text}) {
+export default function TextButton ({text, onClick}) {
     return (
-        <button className={styles.textButton}> {text} </button>
+        <button className={styles.textButton}  onClick={onClick}> {text} </button>
     );
 }

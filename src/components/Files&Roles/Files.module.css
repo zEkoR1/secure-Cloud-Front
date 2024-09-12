@@ -1,0 +1,13 @@
+.folder {
+
+    cursor: pointer;
+}
+.fileItem{
+    margin-left: .5rem;
+    margin-top: .5rem;
+    overflow: auto;
+    max-height: auto;
+}
+.innerItems{
+    margin-left: .8rem;
+}
