@@ -46,7 +46,6 @@
   background-color: var(--text-color);
 }
 
-
 .buttonGroup {
   display: flex;
   margin-right: 0.6rem;
@@ -70,6 +69,7 @@
 }
 
 .closeButtonContainer {
+  cursor: pointer;
   position: absolute;
   top: 50%;
   right: -0.8rem;
@@ -79,15 +79,16 @@
   align-items: center;
 }
 
+
 .verticalLine {
-  width: 4px; /* Adjust width to make it a vertical line */
-  height: 15rem; /* Adjust height as needed */
+  width: 4px;
+  height: 15rem;
   background-color: var(--vertical-divider-color);
-  margin: 3rem 0;
+  margin: 2rem 0;
   border-radius: 4px;
 }
 .bottom {
-  margin: 4.5rem 0;
+  margin: 2rem 0;
 }
 
 .closeButton {
@@ -101,6 +102,7 @@
   height: 1.5rem;
   z-index: 1010;
   transform-origin: center;
+  /* margin-left: 4rem;   */
 }
 
 .closeButtonOpen {
@@ -112,6 +114,15 @@
 }
 .closeIcon {
   color: var(--vertical-divider-color);
+  transition: transform 0.5s ease;
+  width: 20px; /* Ensure the width matches */
+  height: 28px;
+}
+.closeIconPath {
+  fill: var(--background-color);
+  stroke: var(--text-color);
+  stroke-width: 3;
+  stroke-linejoin: round;
 }
 .bottomPart {
   position: absolute;
@@ -120,11 +131,9 @@
   width: 100%;
   height: 4.5rem;
   display: flex;
-  align-items: center; 
-  justify-content: space-between; 
+  align-items: center;
+  justify-content: space-between;
 }
-
-
 
 .profileIcon {
   width: 40px;
@@ -135,11 +144,31 @@
 }
 .bottomLine {
   position: absolute;
-  bottom : 4.5rem;
+  bottom: 4.5rem;
   height: 1px;
   background-color: var(--text-color);
   margin: 0 auto;
 }
-.content{
+.content {
   overflow: auto;
-  max-height: calc(100% - 11.9rem);}
+  max-height: calc(100% - 11.9rem);
+}
+.notActive {
+  outline: none;
+  color: #b4b4b4;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+.activeButton {
+  outline: none;
+  color: var(--text-color);
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  /* border-bottom: 2px solid #000;  */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}

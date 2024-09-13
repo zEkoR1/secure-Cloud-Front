@@ -8,16 +8,15 @@ import testData from "../../testData.json";
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [showPopUp, setShowPopUp] = useState(false);
-  const [activePage, setActivePage] = useState("files"); 
-
+  const [activePage, setActivePage] = useState("files");
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   const handleDropdownToggle = (e) => {
-    e.stopPropagation(); 
-    setShowPopUp(prevState => !prevState);
+    e.stopPropagation();
+    setShowPopUp((prevState) => !prevState);
   };
 
   const handlePageChange = (page) => {
@@ -29,17 +28,23 @@ export default function Sidebar() {
       <div className={styles.upperPart}>
         <h1 className={styles.sectionName}>Files</h1>
         <div className={styles.buttonGroup}>
-          <TextButton
-            text={"Files"}
+          <button
             onClick={() => handlePageChange("files")}
-            className={activePage === "files" ? styles.activeButton : ""}
-          />
+            className={
+              activePage === "files" ? styles.activeButton : styles.notActive
+            }
+          >
+            Files{" "}
+          </button>
           <div className={styles.verticalDivider}></div>
-          <TextButton
-            text={"Roles"}
+          <button
             onClick={() => handlePageChange("roles")}
-            className={activePage === "roles" ? styles.activeButton : ""}
-          />
+            className={
+              activePage === "roles" ? styles.activeButton : styles.notActive
+            }
+          >
+            Roles{" "}
+          </button>
         </div>
       </div>
       <div
@@ -59,25 +64,42 @@ export default function Sidebar() {
       ></div>
       <div className={styles.closeButtonContainer}>
         <div className={styles.verticalLine}></div>
-        <button
-          className={`${styles.closeButton} ${
+        {/* <IoPlayOutline
+          className={`${styles.closeIcon} ${
             isOpen ? styles.closeButtonOpen : styles.closeButtonClosed
           }`}
+          size={40}
           onClick={toggleSidebar}
+        /> */}
+        <svg
+          onClick={toggleSidebar}
+          className={`${styles.closeIcon} ${
+            isOpen ? styles.closeButtonOpen : styles.closeButtonClosed
+          }`}
+          viewBox="0 0 20 28"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <IoPlayOutline className={styles.closeIcon} size={40} />
-        </button>
+          <path
+            className={styles.closeIconPath}
+            d="M2 14L18.5 1.87564L18.5 26.1244L2 14Z"
+          />
+        </svg>
+
+
         <div className={`${styles.verticalLine} ${styles.bottom}`}></div>
       </div>
       <div className={`${styles.horizontalDivider} ${styles.bottomLine}`}></div>
 
       <div className={styles.bottomPart}>
         <div className={styles.profileIcon}></div> {/* Profile Icon */}
-        <DropDown showPopUp={showPopUp} handleDropdownToggle={handleDropdownToggle} />
+        <DropDown
+          showPopUp={showPopUp}
+          handleDropdownToggle={handleDropdownToggle}
+        />
       </div>
 
-      <div className={styles.content}>  
-        {activePage === "files" && <Files data={testData.items}/>}
+      <div className={styles.content}>
+        {activePage === "files" && <Files data={testData.items} />}
         {activePage === "roles" && <div>Roles Page Content</div>}
       </div>
     </aside>

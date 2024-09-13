@@ -28,6 +28,7 @@
 
 body {
   background-color: var(--background-color);  
+  /* background-color: black; */
   color: var(--text-color);
   font-family: "Jost", sans-serif;
 }
