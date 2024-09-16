@@ -59,7 +59,8 @@ export default function LoginPage() {
         <Input type="password" placeholder="Password" onChange={handlePasswordChange} value={password} />
       </div>
       <div className={styles.downPart}>
-        <button onClick={handleLogin}>Log in</button>
+        {/* <button onClick={handleLogin}>Log in</button> */}
+        <Button text="Log in" onClick={handleLogin} />
         <div className={styles.divider}>
           <span className={styles.dividerText}>or</span>
         </div>
