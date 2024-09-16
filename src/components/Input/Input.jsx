@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setLoginValue, setPasswordValue } from '../../store/inputSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from './Input.module.css';
 
-export default function Input({ type, placeholder }) {
+export default function Input({ type, placeholder, onChange, value }) {
   const [showPassword, setShowPassword] = useState(false);
-  const loginValue = useSelector((state) => state.input.loginValue);
-  const passwordValue = useSelector((state) => state.input.passwordValue);
-  const dispatch = useDispatch();
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = (e) => {
-    if (type === 'text') {
-      dispatch(setLoginValue(e.target.value));
-    } else if (type === 'password') {
-      dispatch(setPasswordValue(e.target.value));
+    if (onChange) {
+      onChange(e); // Call the onChange prop
     }
   };
 
-  const value = type === 'text' ? loginValue : passwordValue;
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
   };
 
   return (
@@ -32,10 +32,12 @@ export default function Input({ type, placeholder }) {
         type={type === 'password' && showPassword ? 'text' : type}
         value={value}
         onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         placeholder=""
         required
       />
-      <label className={value || document.activeElement === document.querySelector('input') ? styles.shrink : ''}>
+      <label className={value || isFocused ? styles.shrink : ''}>
         {placeholder}
       </label>
       {type === 'password' && (

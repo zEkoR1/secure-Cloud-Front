@@ -1,6 +1,9 @@
 import logo from "../../assets/googleLogo.png";
 import styles from "./Button.module.css";
 export default function Button({ text, onClick, showLogo }) {
+  const onClick = () => {
+    
+  };;
   return (
     <div className={styles.buttonDiv}>
       <button className={styles.button}>
