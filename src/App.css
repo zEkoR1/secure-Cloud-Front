@@ -9,7 +9,7 @@
   --popup-hover-text-color: black;
   --background-image: url('../../assets/default_light.png');
   --hover-image: url('../../assets/hover_light.png');
-
+  --line-color: #989898;
 }
 
 .dark-theme {
