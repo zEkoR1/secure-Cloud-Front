@@ -1,0 +1,9 @@
+.fast{
+    width: 55rem ;
+    height:75rem ;
+    background-color: var(--background-color) ;
+    position: absolute;
+    top: 7rem;
+    left: 3.5rem;    
+
+}
