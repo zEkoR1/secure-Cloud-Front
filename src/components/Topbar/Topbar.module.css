@@ -1,28 +1,14 @@
-.sidebarDiv {
+.topbarDiv {
   position: fixed;
   left: 0;
   top: 0;
   background-color: var(--side-bar-color);
-  height: 100%;
-  width: 24.1rem; /* Ensure the width matches */
+  height: 3.8rem;
+  /* Ensure the width matches */
+  width: 100%;
   z-index: 1000;
-  transition: transform 0.5s ease;
 }
 
-.closed {
-  transform: translateX(-97%);
-}
-
-.sectionName {
-  color: var(--text-color);
-  font-size: 1.5rem;
-  margin: 0;
-  margin-left: 1rem;
-  padding: 0;
-}
-.hidden {
-  display: none;
-}
 
 .sectionName::first-letter {
   font-family: "Meddon", "Jost";
@@ -32,33 +18,22 @@
 
 .upperPart {
   display: flex;
+  padding: 1.85rem;
   flex-direction: row;
   gap: 1rem;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-}
-
-.verticalDivider {
-  width: 1px;
-  margin: 0;
-  padding: 0;
-  height: 1.5rem;
-  background-color: var(--text-color);
-}
-
-.buttonGroup {
-  display: flex;
-  margin-right: 0.6rem;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .horizontalDivider {
+  position: absolute;
+  top: 3.7rem;
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 1px;
-  background-color: var(--text-color);
+  height: 2px;
+  z-index: 1000;
+  background-color: #989898;
 }
 
 .selectBar {
@@ -66,109 +41,4 @@
   justify-content: flex-end;
   margin: 1rem 0;
   margin-right: 0.6rem;
-}
-
-.closeButtonContainer {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  right: -0.8rem;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-.verticalLine {
-  width: 4px;
-  height: 15rem;
-  background-color: var(--vertical-divider-color);
-  margin: 2rem 0;
-  border-radius: 4px;
-}
-.bottom {
-  margin: 2rem 0;
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 2rem;
-  color: var(--vertical-divider-color);
-  transition: transform 0.5s ease;
-  width: 1.5rem;
-  height: 1.5rem;
-  z-index: 1010;
-  transform-origin: center;
-  /* margin-left: 4rem;   */
-}
-
-.closeButtonOpen {
-  transform: scaleX(-1); /* Default direction for open state */
-}
-
-.closeButtonClosed {
-  transform: scaleX(1); /* Rotated direction for closed state */
-}
-.closeIcon {
-  color: var(--vertical-divider-color);
-  transition: transform 0.5s ease;
-  width: 20px; /* Ensure the width matches */
-  height: 28px;
-}
-.closeIconPath {
-  fill: var(--background-color);
-  stroke: var(--text-color);
-  stroke-width: 3;
-  stroke-linejoin: round;
-}
-.bottomPart {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 4.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.profileIcon {
-  width: 40px;
-  height: 40px;
-  background-color: grey; /* Placeholder for the profile icon */
-  border-radius: 50%; /* Make it circular */
-  margin-left: 1rem;
-}
-.bottomLine {
-  position: absolute;
-  bottom: 4.5rem;
-  height: 1px;
-  background-color: var(--text-color);
-  margin: 0 auto;
-}
-.content {
-  overflow: auto;
-  max-height: calc(100% - 11.9rem);
-}
-.notActive {
-  outline: none;
-  color: #b4b4b4;
-  font-size: 15px;
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-}
-.activeButton {
-  outline: none;
-  color: var(--text-color);
-  font-size: 15px;
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  /* border-bottom: 2px solid #000;  */
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
 }

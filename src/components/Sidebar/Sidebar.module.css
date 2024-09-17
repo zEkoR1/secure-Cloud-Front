@@ -57,8 +57,10 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 1px;
-  background-color: var(--text-color);
+  height: 1.5px;
+  /* background-color: var(--text-color); */
+  background-color: #989898;
+
 }
 
 .selectBar {

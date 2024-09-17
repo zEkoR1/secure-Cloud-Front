@@ -48,9 +48,11 @@ export default function Sidebar() {
         </div>
       </div>
       <div
-        className={`${styles.horizontalDivider} ${
-          !isOpen ? styles.hidden : ""
-        }`}
+        className={styles.horizontalDivider}
+        /*${
+            !isOpen ? styles.hidden : ""}
+         */
+
       ></div>
       <div className={styles.selectBar}>
         <TextButton text={"Select All"} />
@@ -86,9 +88,11 @@ export default function Sidebar() {
         </svg>
 
 
-        <div className={`${styles.verticalLine} ${styles.bottom}`}></div>
+        <div className={`${styles.verticalLine} ${styles.bottom} `}></div>
       </div>
-      <div className={`${styles.horizontalDivider} ${styles.bottomLine}`}></div>
+      <div className={`${styles.horizontalDivider} ${styles.bottomLine} ${
+          !isOpen ? styles.hidden : ""
+      }`}></div>
 
       <div className={styles.bottomPart}>
         <div className={styles.profileIcon}></div> {/* Profile Icon */}
