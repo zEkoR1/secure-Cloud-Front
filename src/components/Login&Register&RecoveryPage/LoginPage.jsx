@@ -1,6 +1,6 @@
 import Button from "../Button/Button.jsx";
 import styles from "./Page.module.css";
-import Input from "../Input/Input.jsx";
+import Inpeut from "../Input/Input.jsx";
 import {useTheme} from '../ThemeContext.jsx'
 import TextButton from "../Button/TextButton.jsx";
 export default function LoginPage() {
