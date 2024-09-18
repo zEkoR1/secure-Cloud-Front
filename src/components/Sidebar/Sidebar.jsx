@@ -5,14 +5,13 @@ import { IoPlayOutline } from "react-icons/io5";
 import DropDown from "./DropDown";
 import Files from "../Files&Roles/Files";
 import testData from "../../testData.json";
+import {useTheme} from "../ThemeContext"
 export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true);
   const [showPopUp, setShowPopUp] = useState(false);
   const [activePage, setActivePage] = useState("files");
+  const {isSidebarOpen, toggleSidebar} = useTheme();
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+
 
   const handleDropdownToggle = (e) => {
     e.stopPropagation();
@@ -24,9 +23,9 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={`${styles.sidebarDiv} ${isOpen ? "" : styles.closed}`}>
+    <aside className={`${styles.sidebarDiv} ${isSidebarOpen ? "" : styles.closed}`}>
       <div className={styles.upperPart}>
-        <h1 className={styles.sectionName}>Files</h1>
+        <h1 className={styles.sectionName}>Ffiles</h1>
         <div className={styles.buttonGroup}>
           <button
             onClick={() => handlePageChange("files")}
@@ -48,9 +47,7 @@ export default function Sidebar() {
         </div>
       </div>
       <div
-        className={`${styles.horizontalDivider} ${
-          !isOpen ? styles.hidden : ""
-        }`}
+        className={styles.horizontalDivider}
       ></div>
       <div className={styles.selectBar}>
         <TextButton text={"Select All"} />
@@ -59,22 +56,15 @@ export default function Sidebar() {
       </div>
       <div
         className={`${styles.horizontalDivider} ${
-          !isOpen ? styles.hidden : ""
+          !isSidebarOpen ? styles.hidden : ""
         }`}
       ></div>
       <div className={styles.closeButtonContainer}>
         <div className={styles.verticalLine}></div>
-        {/* <IoPlayOutline
-          className={`${styles.closeIcon} ${
-            isOpen ? styles.closeButtonOpen : styles.closeButtonClosed
-          }`}
-          size={40}
-          onClick={toggleSidebar}
-        /> */}
         <svg
           onClick={toggleSidebar}
           className={`${styles.closeIcon} ${
-            isOpen ? styles.closeButtonOpen : styles.closeButtonClosed
+            isSidebarOpen ? styles.closeButtonOpen : styles.closeButtonClosed
           }`}
           viewBox="0 0 20 28"
           xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +78,7 @@ export default function Sidebar() {
 
         <div className={`${styles.verticalLine} ${styles.bottom}`}></div>
       </div>
-      <div className={`${styles.horizontalDivider} ${styles.bottomLine}`}></div>
+      {/* <div className={`${styles.horizontalDivider} ${styles.bottomLine}`}></div> */}
 
       <div className={styles.bottomPart}>
         <div className={styles.profileIcon}></div> {/* Profile Icon */}

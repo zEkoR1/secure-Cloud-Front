@@ -1,23 +1,34 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import LoginPage from "./components/Login&Register&RecoveryPage/LoginPage";
-import RegisterPage from "./components/Login&Register&RecoveryPage/RegisterPage";
+import { useTheme } from "./components/ThemeContext";
 import { ThemeProvider } from "./components/ThemeContext";
-import Recovery from "./components/Login&Register&RecoveryPage/Recovery";
-import Sidebar from "./components/Sidebar/Sidebar";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
+import HomePage from "./components/HomePage";
 function App() {
   return (
     <ThemeProvider>
-      <Sidebar /> 
-       <div className="mainContent">
-        <LoginPage />
-        <RegisterPage />
-        <Recovery />
-      </div>
-      {/* <WelcomePage /> */}
+      <ThemedApp />
     </ThemeProvider>
+  );
+}
+function ThemedApp() {
+  const { theme } = useTheme();
+
+  return (
+    <div className={theme === "dark" ? "dark-theme" : ""}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/home" element={<HomePage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
 export default App;
-
+//  Login Page ( поля раздвинуть логин и пароль);
+// Закругления уменьшить, поля сделать менее выраженными 72727  или #dedede
+// homePage дефолтную картинку нахуй, при ъовере анимация
+// анимация на фон
+// уборать андерлайн под Files | Roles

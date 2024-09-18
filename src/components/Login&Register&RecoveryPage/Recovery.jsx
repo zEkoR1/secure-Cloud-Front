@@ -2,7 +2,7 @@ import styles from "./Page.module.css";
 import Button from "../Button/Button.jsx";
 import Input from "../Input/Input.jsx";
 import TextButton from "../Button/TextButton.jsx";
-export default function Recovery() {
+export default function Recovery({ switchToLogin }) {
   return (
     <div className={`${styles.divWrapper}  ${styles.wrapperRecovery}`}>
       <div className={styles.recoveryDiv}>
@@ -15,12 +15,12 @@ export default function Recovery() {
       <div className={`${styles.inputPart} ${styles.inputRecovery}`}>
         <Input type={"text"} placeholder={"Email"} />
         <Button text={"Send password reset"} />
-
       </div>
 
       <div className={`${styles.downPart} ${styles.downPartRecovery}`}>
         <div className={styles.backButton}>
-        <TextButton text ={ "Back to Login " }/>        </div>
+          <TextButton text={"Back to Login "} onClick={switchToLogin} />{" "}
+        </div>
       </div>
     </div>
   );

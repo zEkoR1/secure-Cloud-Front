@@ -1,0 +1,43 @@
+.topbarDiv {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--side-bar-color);
+    height: 3.8rem;
+        width: 100%;
+    z-index: 1000;
+  }
+  
+  
+  .sectionName::first-letter {
+    font-family: "Meddon", "Jost";
+    margin: 0;
+    font-size: 3.1rem;
+  }
+  
+  .upperPart {
+    display: flex;
+    padding: 1.85rem;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .horizontalDivider {
+    position: absolute;
+    top: 3.8rem;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: .12rem;
+    z-index: 1000;
+    background-color: #989898;
+  }
+  
+  .selectBar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+    margin-right: 0.6rem;
+  }

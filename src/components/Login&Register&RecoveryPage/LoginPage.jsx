@@ -1,15 +1,16 @@
 import Button from "../Button/Button.jsx";
 import { useState } from "react";
 import styles from "./Page.module.css";
-import { useTheme } from "../ThemeContext.jsx";
 import TextButton from "../Button/TextButton.jsx";
 import Input from "../Input/Input.jsx";
-
-export default function LoginPage() {
+import { useNavigate } from "react-router-dom";
+import {useTheme} from "../ThemeContext.jsx"; 
+export default function LoginPage({switchToRegister, switchToRecovery}) {
   const apiUrl = import.meta.env.VITE_API_URL; 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
+  const {theme} = useTheme();
   const handleLoginChange = (e) => {
     setLogin(e.target.value);
   };
@@ -39,35 +40,41 @@ export default function LoginPage() {
 
       const data = await response.json();
       console.log("Login successful", data);
+      navigate("/home");  
     } catch (error) {
       console.error("Login failed:", error.message || error);
     }
   };
 
-  const { theme, toggleTheme } = useTheme();
-  document.body.className = theme === "dark" ? "dark-theme" : "";
 
   return (
-    <div className={styles.divWrapper}>
-      <button onClick={toggleTheme} className={styles.themeToggle}>
-        Toggle theme
-      </button>
-
-      <div className={styles.inputPart}>
-        <h1 className={styles.welcome}>Welcome</h1>
-        <Input type="text" placeholder="Login" onChange={handleLoginChange} value={login} />
-        <Input type="password" placeholder="Password" onChange={handlePasswordChange} value={password} />
-      </div>
-      <div className={styles.downPart}>
-        {/* <button onClick={handleLogin}>Log in</button> */}
-        <Button text="Log in" onClick={handleLogin} />
-        <div className={styles.divider}>
-          <span className={styles.dividerText}>or</span>
+    <div className={theme === "dark" ? "dark-theme" : ""}>
+      <div className={styles.divWrapper}>
+        <div className={styles.inputPart}>
+          <h1 className={styles.welcome}>Welcome</h1>
+          <Input
+            type="text"
+            placeholder="Login"
+            onChange={handleLoginChange}
+            value={login}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            onChange={handlePasswordChange}
+            value={password}
+          />
         </div>
-        <Button text="Continue with Google" showLogo={true} />
-        <div className={styles.registerPart}>
-          <TextButton text="Forgot Password?" />
-          <TextButton text="Register" />
+        <div className={styles.downPart}>
+          <Button text="Log in" onClick={handleLogin} />
+          <div className={styles.divider}>
+            <span className={styles.dividerText}>or</span>
+          </div>
+          <Button text="Continue with Google" showLogo={true} />
+          <div className={styles.registerPart}>
+            <TextButton text="Forgot Password?" onClick={switchToRecovery} />
+            <TextButton text="Register" onClick={switchToRegister} />
+          </div>
         </div>
       </div>
     </div>
