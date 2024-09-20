@@ -1,23 +1,23 @@
 .mainDiv {
-    margin-top: 7.4rem;
-    background-color: var(--side-bar-color);
-    height: 130rem;  
-    transition: margin-left 0.5s ease;
-    top: 6.8rem;
-    /* width: 153.9rem; */
+  margin-top: 7.4rem;
+  background-color: var(--side-bar-color);
+  height: 130rem;
+  transition: margin-left 0.5s ease, width 0.5s ease; 
+  top: 6.8rem;
+  margin-right: 3rem;
+}
 
-  }
-  
-  .sidebarOpen {
-    margin-left: 27rem;
-    /* width: 130rem; */
-width: 81.2vw;
-  }
-  
-  .sidebarClosed {
-    margin-left: 3rem;
-  }
-  
+.sidebarOpen {
+  margin-left: 27rem; 
+  width: calc(100vw - 27rem - 3rem); 
+}
+
+.sidebarClosed {
+  margin-left: 3rem; 
+  width: calc(100vw - 6rem);
+}
+
+
   /* .mainContent {
     background-color: var(--background-color);
     font-family: "Jost", sans-serif;

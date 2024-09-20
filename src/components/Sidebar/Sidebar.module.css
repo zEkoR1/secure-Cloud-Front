@@ -178,3 +178,9 @@
   text-decoration: underline;
   text-decoration-thickness: 2px;
 }
+.customPopupIcon{
+  color: var(--text-color)
+}
+.customPopupIcon:active{
+  color: #5C95EA
+}

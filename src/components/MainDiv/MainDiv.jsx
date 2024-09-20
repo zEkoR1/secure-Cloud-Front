@@ -1,14 +1,16 @@
 import styles from "./MainDiv.module.css";
+import {useMemo } from "react";
 import { useTheme } from "../ThemeContext";
-import LoginPage from "../Login&Register&RecoveryPage/LoginPage";
 export default function MainDiv() {
   const { isSidebarOpen } = useTheme();
+  const mainDivClassName = useMemo(() => {
+    return `${styles.mainDiv} ${isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`;
+  }, [isSidebarOpen]);
+
   return (
     // <div className={styles.mainContent}>
       <div
-        className={`${styles.mainDiv} ${
-          isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed
-        }`}
+        className={mainDivClassName}
         
       >
 

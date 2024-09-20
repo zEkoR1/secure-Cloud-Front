@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import styles from "./WelcomePage.module.css";
 import lightBg from "../../assets/default_light.png";
 import darkBg from "../../assets/default_dark.png";
@@ -27,15 +27,21 @@ export default function WelcomePage() {
   const switchToLogin = () => setCurrentPage("login");
   const switchToRecovery = () => setCurrentPage("recovery");
 
-  const currentBackground =
-    theme === "light"
-      ? isButtonHovered
-        ? lightHoverBg
-        : lightBg
-      : isButtonHovered
-      ? darkHoverBg
-      : darkBg;
-
+  // const currentBackground =
+  //   theme === "light"
+  //     ? isButtonHovered
+  //       ? lightHoverBg
+  //       : lightBg
+  //     : isButtonHovered
+  //     ? darkHoverBg
+  //     : darkBg;
+const currentBackground = useMemo(() => {
+  if (theme === "light") {
+    return isButtonHovered ? lightHoverBg : lightBg;
+  } else {
+    return isButtonHovered ? darkHoverBg : darkBg;
+  }
+},[theme, isButtonHovered]);
   return (
     <div
       className={`${styles.welcomePage} ${
@@ -52,7 +58,7 @@ export default function WelcomePage() {
       <button onClick={toggleTheme}>Toggle Theme</button>
       <div className={styles.buttonDiv}>
         <h1 className={styles.welcomeH}>
-          We have your mom <br />
+          We have your files <br />
           We manage it!
         </h1>
 
@@ -72,6 +78,7 @@ export default function WelcomePage() {
         style={{
           overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(10px)",
           },
           content: {
             backgroundColor: "transparent",

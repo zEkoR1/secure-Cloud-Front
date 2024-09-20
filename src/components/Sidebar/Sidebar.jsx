@@ -1,29 +1,24 @@
 import styles from "./Sidebar.module.css";
 import TextButton from "../Button/TextButton";
 import { useState } from "react";
-import { IoPlayOutline } from "react-icons/io5";
 import DropDown from "./DropDown";
 import Files from "../Files&Roles/Files";
 import testData from "../../testData.json";
-import {useTheme} from "../ThemeContext"
+import { useTheme } from "../ThemeContext";
 export default function Sidebar() {
-  const [showPopUp, setShowPopUp] = useState(false);
   const [activePage, setActivePage] = useState("files");
-  const {isSidebarOpen, toggleSidebar} = useTheme();
+  const { isSidebarOpen, toggleSidebar } = useTheme();
 
 
-
-  const handleDropdownToggle = (e) => {
-    e.stopPropagation();
-    setShowPopUp((prevState) => !prevState);
-  };
 
   const handlePageChange = (page) => {
     setActivePage(page);
   };
 
   return (
-    <aside className={`${styles.sidebarDiv} ${isSidebarOpen ? "" : styles.closed}`}>
+    <aside
+      className={`${styles.sidebarDiv} ${isSidebarOpen ? "" : styles.closed}`}
+    >
       <div className={styles.upperPart}>
         <h1 className={styles.sectionName}>Ffiles</h1>
         <div className={styles.buttonGroup}>
@@ -46,9 +41,7 @@ export default function Sidebar() {
           </button>
         </div>
       </div>
-      <div
-        className={styles.horizontalDivider}
-      ></div>
+      <div className={styles.horizontalDivider}></div>
       <div className={styles.selectBar}>
         <TextButton text={"Select All"} />
         <div className={styles.verticalDivider}></div>
@@ -75,17 +68,13 @@ export default function Sidebar() {
           />
         </svg>
 
-
         <div className={`${styles.verticalLine} ${styles.bottom}`}></div>
       </div>
       {/* <div className={`${styles.horizontalDivider} ${styles.bottomLine}`}></div> */}
 
       <div className={styles.bottomPart}>
         <div className={styles.profileIcon}></div> {/* Profile Icon */}
-        <DropDown
-          showPopUp={showPopUp}
-          handleDropdownToggle={handleDropdownToggle}
-        />
+        <DropDown />
       </div>
 
       <div className={styles.content}>

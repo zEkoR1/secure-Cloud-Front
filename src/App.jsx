@@ -13,6 +13,7 @@ function App() {
 }
 function ThemedApp() {
   const { theme } = useTheme();
+  document.body.className = theme === "dark" ? "dark-theme" : "";
 
   return (
     <div className={theme === "dark" ? "dark-theme" : ""}>

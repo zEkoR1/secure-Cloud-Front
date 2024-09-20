@@ -2,15 +2,14 @@ import styles from "./DropDown.module.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-export default function DropDown({ showPopUp, handleDropdownToggle }) {
+export default function DropDown() {
   return (
-    <Dropdown show={showPopUp} onClick={handleDropdownToggle}>
+    <Dropdown >
       <Dropdown.Toggle
         as="button"
         className={styles.settingsPopup}
         variant="success"
         id="dropdown-basic"
-        onClick={handleDropdownToggle}
       >
         <BsThreeDotsVertical size={30} />
       </Dropdown.Toggle>

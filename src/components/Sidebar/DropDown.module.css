@@ -6,9 +6,13 @@
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  color: var(--text-color);
 }
 .settingsPopup::after {
   display: none !important;
+}
+.settingsPopup:focus {
+  color: #5C95EA;
 }
 .dropDownMenu  {
     background-color: var(--background-color)!important;

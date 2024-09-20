@@ -35,7 +35,7 @@
   
   /* Button Styles */
   .buttonJoin {
-    background-color: #0db087;
+    background-color: var(--button-background-color);
     color: white;
     padding: 6px 60px;
     border-radius: 36px;
@@ -47,7 +47,7 @@
     transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover and scale transition */  }
   
   .buttonJoin:hover {
-    background-color: #0a8463; /* Slightly darker color on hover */
+    background-color: var(--button-background-color); /* Slightly darker color on hover */
     /* transition-delay: 1s; */
     transform: scale(1.05); /* Slight scaling effect on hover */
   }

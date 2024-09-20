@@ -20,6 +20,8 @@
 .welcome {
     font-size: 72px;
     color:var(--text-color);
+    /* color:white; */
+
     margin: 0;
     padding: 0;
     margin-bottom: 2rem;
@@ -124,7 +126,6 @@
 .toggle-button:focus {
   outline: none;
 }
-.welcome {
-    font-size: 72px;
-    color:#000000
+.p{
+  color: var(--text-color)
 }

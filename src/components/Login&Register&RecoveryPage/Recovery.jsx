@@ -7,7 +7,7 @@ export default function Recovery({ switchToLogin }) {
     <div className={`${styles.divWrapper}  ${styles.wrapperRecovery}`}>
       <div className={styles.recoveryDiv}>
         <h1 className={styles.passReset}>Pass Reset</h1>
-        <p>
+        <p className={styles.p}>
           Enter your email address and we will send you a link to reset your
           password
         </p>
