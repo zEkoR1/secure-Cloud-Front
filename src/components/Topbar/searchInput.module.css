@@ -1,43 +1,64 @@
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+﻿@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
 * {
-  font-family: "Jost", sans-serif;
+    font-family: "Jost", sans-serif;
 }
-.input-container {
-  /* height: 1rem; */
-  position: sticky;
-}
+/*.input-container {*/
+/*    margin-top: 0.47rem;*/
+/*    background-color: #FFFFFF;*/
+/*    height: 130rem;*/
+/*    transition: margin-left 0.5s ease, width 0.5s ease;*/
+/*    top: 6.8rem;*/
+/*    margin-right: 3rem;*/
+/*}*/
 
 .input {
-  padding: 10px 90px 10px 10px;
-  border: 1px solid var(--line-color);
-  border-radius: 14px;
-  font-family: sans-serif;
-  width: 100%;
-  box-sizing: border-box;
+    position: absolute;
+    margin-top: 0.5rem;
+    background-color: #FFFFFF;
+    height: 2.8rem;
+    transition: margin-left 0.5s ease, width 0.5s ease;
+    margin-left: 0.5rem;
+    padding: 1rem 1rem 1rem 1rem;
+    border: 1px solid var(--line-color);
+    border-radius: 14px;
+    font-family: sans-serif;
+    width: 45%;
+    box-sizing: border-box;
 }
 
-/* .input:focus {
+ .input:focus {
   outline: 0.2px solid var(--divider-color);
-} */
+}
 
 .input + label {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  color: #aaa;
-  font-size: 16px;
-  transition: all 0.4s ease;
-  pointer-events: none;
+    position: absolute;
+    padding: 2rem 1rem 1.8rem 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 16px;
+    transition: all 0.4s ease;
+    pointer-events: none;
 }
 
 .input:focus + label,
 .input:not(:placeholder-shown) + label {
-  top: 6px;
-  left: 12px;
-  font-size: 12px;
-  color: rgba(128, 128, 128, 0);
+    top: 6px;
+    left: 12px;
+    font-size: 12px;
+    color: rgba(128, 128, 128, 0);
 }
+
+.sidebarOpen {
+  margin-left: 27rem;
+  width: calc(100vw - 27rem - 39rem);
+}
+
+.sidebarClosed {
+  margin-left: 40rem;
+  width: calc(100vw - 6rem);
+}
+
 /* .toggle-button {
   position: absolute;
   top: 50%;
