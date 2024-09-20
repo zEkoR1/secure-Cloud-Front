@@ -16,13 +16,13 @@
 }
 
 .dark-theme {
-  --background-color: #373737;
+  --background-color:#353535 ;
   --modal-background-color: #3e3e3e;
   --text-color: #ffffff;
   --divider-color: #ffffff;
   --button-background-color: #5c95ea;
   --button-text-color: #000000;
-  --side-bar-color: #474747;
+  --side-bar-color: #282828;
   --vertical-divider-color: #FFFFFF;
   --popup-hover-text-color: white;
   --background-image: url('../../assets/default_dark.png');

@@ -27,14 +27,6 @@ export default function WelcomePage() {
   const switchToLogin = () => setCurrentPage("login");
   const switchToRecovery = () => setCurrentPage("recovery");
 
-  // const currentBackground =
-  //   theme === "light"
-  //     ? isButtonHovered
-  //       ? lightHoverBg
-  //       : lightBg
-  //     : isButtonHovered
-  //     ? darkHoverBg
-  //     : darkBg;
 const currentBackground = useMemo(() => {
   if (theme === "light") {
     return isButtonHovered ? lightHoverBg : lightBg;

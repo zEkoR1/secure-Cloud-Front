@@ -1,14 +1,37 @@
-.folder {
-
-    cursor: pointer;
-}
-.fileItem{
-    margin-left: .5rem;
-    margin-top: .5rem;
-    overflow: auto;
+.fileItem {
+    display: flex;
+    flex-direction: column;
     color: var(--text-color);
-    max-height: auto;
-}
-.innerItems{
-    margin-left: .8rem;
-}
+  }
+  
+  .itemContent {
+    display: flex;
+    align-items: center;
+  }
+  
+  .expandIcon {
+    width: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .checkbox {
+    margin: 0 5px;
+  }
+  
+  .folderName, .fileName {
+    margin-left: 1px;
+    cursor: pointer;
+  }
+  
+  .innerItems {
+    padding-left: 20px;
+  }
+  
+  .selected .folderName, .selected .fileName {
+    background-color: #d3e2f7;
+  }
+  
+  .fileIcon {
+    margin-right: 1px;
+  }
