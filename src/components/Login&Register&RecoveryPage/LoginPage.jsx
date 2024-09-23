@@ -1,16 +1,17 @@
 import Button from "../Button/Button.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Page.module.css";
 import TextButton from "../Button/TextButton.jsx";
 import Input from "../Input/Input.jsx";
-import { useNavigate } from "react-router-dom";
-import {useTheme} from "../ThemeContext.jsx"; 
-export default function LoginPage({switchToRegister, switchToRecovery}) {
-  const apiUrl = import.meta.env.VITE_API_URL; 
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTheme } from "../ThemeContext.jsx";
+export default function LoginPage({ switchToRegister, switchToRecovery }) {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const {theme} = useTheme();
+  const location = useLocation();
+  const { theme } = useTheme();
   const handleLoginChange = (e) => {
     setLogin(e.target.value);
   };
@@ -18,7 +19,14 @@ export default function LoginPage({switchToRegister, switchToRecovery}) {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const token = query.get("token");
+    if (token) {
+      localStorage.setItem("token", token);
+      navigate("/home");
+    }
+  }, [location, navigate]);
   const handleLogin = async () => {
     try {
       const response = await fetch(`${apiUrl}/api/auth/login`, {
@@ -33,19 +41,18 @@ export default function LoginPage({switchToRegister, switchToRecovery}) {
       });
 
       if (!response.ok) {
-        const responseBody = await response.text(); 
+        const responseBody = await response.text();
         console.error("Response error:", responseBody);
-        throw new Error(`Login Failed: ${responseBody || 'Unknown error'}`);
+        throw new Error(`Login Failed: ${responseBody || "Unknown error"}`);
       }
 
       const data = await response.json();
       console.log("Login successful", data);
-      navigate("/home");  
+      navigate("/home");
     } catch (error) {
       console.error("Login failed:", error.message || error);
     }
   };
-
 
   return (
     <div className={theme === "dark" ? "dark-theme" : ""}>
@@ -70,7 +77,23 @@ export default function LoginPage({switchToRegister, switchToRecovery}) {
           <div className={styles.divider}>
             <span className={styles.dividerText}>or</span>
           </div>
-          <Button text="Continue with Google" showLogo={true} />
+          <Button
+            text="Continue with Google"
+            showLogo={true}
+            onClick={() => {
+              const width = 500;
+              const height = 600;
+              
+              const left = (window.screen.width / 2) - (width / 2);
+              const top = (window.screen.height / 2) - (height / 2);
+              window.open(
+                `${apiUrl}/auth/google`,
+                "_blank",
+                `width=${width},height=${height},top=${top},left=${left}`
+                
+              )}
+            }
+          />
           <div className={styles.registerPart}>
             <TextButton text="Forgot Password?" onClick={switchToRecovery} />
             <TextButton text="Register" onClick={switchToRegister} />
