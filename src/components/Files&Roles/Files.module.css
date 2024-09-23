@@ -1,37 +1,48 @@
 .fileItem {
-    display: flex;
-    flex-direction: column;
-    color: var(--text-color);
-  }
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color);
+  margin-left:4px;
   
-  .itemContent {
-    display: flex;
-    align-items: center;
-  }
-  
-  .expandIcon {
-    width: 20px;
-    text-align: center;
-    cursor: pointer;
-  }
-  
-  .checkbox {
-    margin: 0 5px;
-  }
-  
-  .folderName, .fileName {
-    margin-left: 1px;
-    cursor: pointer;
-  }
-  
-  .innerItems {
-    padding-left: 20px;
-  }
-  
-  .selected .folderName, .selected .fileName {
-    background-color: #d3e2f7;
-  }
-  
-  .fileIcon {
-    margin-right: 1px;
-  }
+}
+
+.itemContent {
+  display: flex;
+  align-items: center;
+}
+
+.expandIcon {
+  width: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.checkbox {
+  margin: 0 5px;
+}
+
+.folderName,
+.fileName {
+  margin-left: 1px;
+  cursor: pointer;
+}
+
+.innerItems {
+  padding-left: 20px;
+}
+
+.selected .folderName,
+.selected .fileName {
+  background-color: #d3e2f7;
+}
+
+.fileIcon {
+  margin-right: 1px;
+}
+.folderIconSvg {
+  width: 22px; 
+  height: 14px;
+  fill: none;
+  margin-bottom: 3px;
+  margin-right: 7px;
+}
