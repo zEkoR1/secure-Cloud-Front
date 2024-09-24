@@ -23,11 +23,9 @@ export default function FileItem({
 
   const isSelected = selectedFiles.includes(file.id);
 
-  // Icons for light theme (open folder only)
   const lightThemeOpenIcon = (
     <svg
-      width="28"
-      height="20"
+      className={styles.folderIconSvg}
       viewBox="0 0 28 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -49,11 +47,9 @@ export default function FileItem({
     </svg>
   );
 
-  // Icons for dark theme (open folder only)
   const darkThemeOpenIcon = (
     <svg
-      width="28"
-      height="20"
+      className={styles.folderIconSvg}
       viewBox="0 0 28 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -71,11 +67,10 @@ export default function FileItem({
         stroke="#75ACDF"
         strokeWidth="7"
         strokeLinejoin="round"
-      />
-    </svg>
+        />
+    </svg>  
   );
 
-  // Choose the appropriate icon based on the theme
   const folderIcon = theme === "light" ? lightThemeOpenIcon : darkThemeOpenIcon;
 
   return (
@@ -84,7 +79,7 @@ export default function FileItem({
         {file.type !== "file" ? (
           <>
             <span className={styles.expandIcon} onClick={handleToggleOpen}>
-              {folderIcon} {/* Show the icon only if the folder is open */}
+              {folderIcon} 
             </span>
             <input
               type="checkbox"
