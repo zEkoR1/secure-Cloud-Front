@@ -25,7 +25,7 @@ export default function Sidebar() {
 
       if (response.status === 401) {
         console.warn('Session expired or invalid. Redirecting to login.');
-        navigate('/');
+        navigate('/', {state: {openLoginModal: true}});
         return;
       }
 
@@ -157,7 +157,7 @@ export default function Sidebar() {
       <div className={styles.content}>
         {activePage === "files" && data.items && data.items.length > 0 ? (
           <Files
-            data={data.items} // Pass the correct data to the Files component
+            data={data.items} 
             selectedFiles={selectedFiles}
             toggleFileSelection={toggleFileSelection}
             closeFoldersCounter={closeFoldersCounter}

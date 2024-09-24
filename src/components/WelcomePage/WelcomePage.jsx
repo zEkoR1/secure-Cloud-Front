@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import styles from "./WelcomePage.module.css";
 import lightBg from "../../assets/default_light.png";
 import darkBg from "../../assets/default_dark.png";
@@ -9,10 +9,12 @@ import LoginPage from "../Login&Register&RecoveryPage/LoginPage";
 import RegisterPage from "../Login&Register&RecoveryPage/RegisterPage";
 import Recovery from "../Login&Register&RecoveryPage/Recovery";
 import { useTheme } from "../ThemeContext";
+import {useLocation} from "react-router-dom";
 
 Modal.setAppElement("#root");
 
 export default function WelcomePage() {
+  const location = useLocation(); 
   const { theme, toggleTheme } = useTheme();
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [isModalOpen, setModalIsOpen] = useState(false);
@@ -34,6 +36,12 @@ const currentBackground = useMemo(() => {
     return isButtonHovered ? darkHoverBg : darkBg;
   }
 },[theme, isButtonHovered]);
+useEffect(() => {
+  if (location.state?.openLoginModal) {
+    setModalIsOpen(true);
+    setCurrentPage("login");
+  }
+}, [location.state]);
   return (
     <div
       className={`${styles.welcomePage} ${
