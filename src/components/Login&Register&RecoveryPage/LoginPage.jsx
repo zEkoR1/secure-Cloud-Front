@@ -38,6 +38,7 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
           identity: login,
           password: password,
         }),
+        credentials: 'include', 
       });
 
       if (!response.ok) {
