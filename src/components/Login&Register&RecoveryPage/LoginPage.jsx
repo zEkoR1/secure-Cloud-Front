@@ -5,13 +5,15 @@ import TextButton from "../Button/TextButton.jsx";
 import Input from "../Input/Input.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "../ThemeContext.jsx";
+
 export default function LoginPage({ switchToRegister, switchToRecovery }) {
   const apiUrl = import.meta.env.VITE_API_URL;
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { theme } = useTheme();
+  const { theme, fetchData } = useTheme();
+
   const handleLoginChange = (e) => {
     setLogin(e.target.value);
   };
@@ -19,6 +21,7 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const token = query.get("token");
@@ -27,6 +30,7 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
       navigate("/home");
     }
   }, [location, navigate]);
+
   const handleLogin = async () => {
     try {
       const response = await fetch(`${apiUrl}/api/auth/login`, {
@@ -49,6 +53,7 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
 
       const data = await response.json();
       console.log("Login successful", data);
+      await fetchData(); // Call the data fetching function after login
       navigate("/home");
     } catch (error) {
       console.error("Login failed:", error.message || error);

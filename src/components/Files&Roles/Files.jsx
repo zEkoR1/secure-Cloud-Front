@@ -1,15 +1,13 @@
 import styles from "./Files.module.css";
 import FileItem from "./FileItem";
-import {useState} from "react";
-export default function Files({ data, selectedFiles, toggleFileSelection, closeFoldersCounter, openFolderInMainDiv }) {
-  const [clickTimeout, setClickTimeout] = useState(null);
-  const handleClick = (file) => {
-    if(clickTimeout){
-      clearTimeout(clickTimeout);
-      setClickTimeout(null);
-      handleDoubleClick(file);
-    }
-  }
+
+export default function Files({
+  data,
+  selectedFiles,
+  toggleFileSelection,
+  closeFoldersCounter,
+  openFolderInMainDiv,
+}) {
   return (
     <div className={styles.filesDiv}>
       {Array.isArray(data) &&
@@ -19,7 +17,7 @@ export default function Files({ data, selectedFiles, toggleFileSelection, closeF
             file={file}
             selectedFiles={selectedFiles}
             toggleFileSelection={toggleFileSelection}
-            closeFoldersCounter={closeFoldersCounter}
+            closeFoldersCounter={closeFoldersCounter} // Pass counter to FileItem component
             onDummyClick={openFolderInMainDiv}
           />
         ))}
