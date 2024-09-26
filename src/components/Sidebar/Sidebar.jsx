@@ -12,7 +12,7 @@ export default function Sidebar() {
   const [activePage, setActivePage] = useState("files");
   const { isSidebarOpen, fileData, selectFolder, toggleSidebar } = useTheme();
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [closeFoldersCounter, setCloseFoldersCounter] = useState(0);
+  const [closeFoldersCounter, setCloseFoldersCounter] = useState(0); // Counter to trigger closing folders
 
   const navigate = useNavigate();
 
@@ -38,6 +38,11 @@ export default function Sidebar() {
     } else {
       setSelectedFiles(allIds);
     }
+  };
+
+  // Handle Close All Folders functionality
+  const handleCloseAllFolders = () => {
+    setCloseFoldersCounter((prevCounter) => prevCounter + 1); // Increment counter to trigger closing folders
   };
 
   return (
@@ -71,9 +76,7 @@ export default function Sidebar() {
           onClick={handleSelectAll}
         />
         <div className={styles.verticalDivider}></div>
-        <TextButton text={"Close all folders"} 
-        // onClick={handleCloseAllFolders}
-         />
+        <TextButton text={"Close all folders"} onClick={handleCloseAllFolders} />
       </div>
       <div className={`${styles.horizontalDivider} ${!isSidebarOpen ? styles.hidden : ""}`}></div>
       <div className={styles.closeButtonContainer}>
@@ -97,7 +100,7 @@ export default function Sidebar() {
       </div>
 
       <div className={styles.content}>
-      {console.log("fileData:", fileData)}
+        {console.log("fileData:", fileData)}
 
         {activePage === "files" && fileData && fileData.length > 0 ? (
           <Files
@@ -110,7 +113,7 @@ export default function Sidebar() {
                   : [...prevSelectedFiles, file.id]
               );
             }}
-            closeFoldersCounter={closeFoldersCounter}
+            closeFoldersCounter={closeFoldersCounter} // Pass counter to Files component
             openFolderInMainDiv={(folder) => {
               console.log("Selected folder:", folder);
               selectFolder(folder);
