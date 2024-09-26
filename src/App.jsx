@@ -6,9 +6,11 @@ import WelcomePage from "./components/WelcomePage/WelcomePage";
 import HomePage from "./components/HomePage";
 function App() {
   return (
-    <ThemeProvider>
-      <ThemedApp />
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider>
+        <ThemedApp />
+      </ThemeProvider>
+    </Router>
   );
 }
 function ThemedApp() {
@@ -17,12 +19,10 @@ function ThemedApp() {
 
   return (
     <div className={theme === "dark" ? "dark-theme" : ""}>
-      <Router>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/home" element={<HomePage />} />
         </Routes>
-      </Router>
     </div>
   );
 }

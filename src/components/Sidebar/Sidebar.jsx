@@ -10,47 +10,16 @@ export default function Sidebar() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const [activePage, setActivePage] = useState("files");
-  const { isSidebarOpen, toggleSidebar } = useTheme();
-  const [data, setData] = useState({}); // Initialize with an empty object
+  const { isSidebarOpen, fileData, selectFolder, toggleSidebar } = useTheme();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [closeFoldersCounter, setCloseFoldersCounter] = useState(0);
 
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${apiUrl}/api/files/`, {
-        credentials: 'include',
-      });
-
-      if (response.status === 401) {
-        console.warn('Session expired or invalid. Redirecting to login.');
-        navigate('/', {state: {openLoginModal: true}});
-        return;
-      }
-
-      if (!response.ok) {
-        const responseBody = await response.text();
-        console.error("Response error:", responseBody);
-        throw new Error(`Failed to fetch files: ${responseBody || "Unknown error"}`);
-      }
-
-      const fetchedData = await response.json();
-      console.log("Fetched Data:", fetchedData); // Log to ensure we're getting the right structure
-      setData(fetchedData.data); // Use fetchedData.data to access the items array
-    } catch (error) {
-      console.error("Error:", error.message || error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // Helper to get all file IDs
   const getAllFileIds = (items) => {
     let ids = [];
-    if (items) {
+    if (Array.isArray(items)) {
       items.forEach((item) => {
         ids.push(item.id);
         if (item.children) {
@@ -61,43 +30,14 @@ export default function Sidebar() {
     return ids;
   };
 
-  // Helper to get file and all child IDs
-  const getFileAndChildIds = (file) => {
-    let ids = [file.id];
-    if (file.children) {
-      file.children.forEach((child) => {
-        ids = ids.concat(getFileAndChildIds(child));
-      });
-    }
-    return ids;
-  };
-
   // Handle Select All/Deselect All functionality
   const handleSelectAll = () => {
-    const allIds = getAllFileIds(data.items || []); // Ensure we're accessing data.items
+    const allIds = getAllFileIds(fileData || []);
     if (selectedFiles.length === allIds.length) {
       setSelectedFiles([]);
     } else {
       setSelectedFiles(allIds);
     }
-  };
-
-  // Handle file or folder selection/deselection
-  const toggleFileSelection = (file) => {
-    const allIds = getFileAndChildIds(file); // Get all child file IDs as well
-    if (selectedFiles.some((id) => allIds.includes(id))) {
-      setSelectedFiles(selectedFiles.filter((id) => !allIds.includes(id)));
-    } else {
-      setSelectedFiles([...selectedFiles, ...allIds]);
-    }
-  };
-
-  const handleCloseAllFolders = () => {
-    setCloseFoldersCounter((prev) => prev + 1);
-  };
-
-  const handlePageChange = (page) => {
-    setActivePage(page);
   };
 
   return (
@@ -106,14 +46,14 @@ export default function Sidebar() {
         <h1 className={styles.sectionName}>Files</h1>
         <div className={styles.buttonGroup}>
           <button
-            onClick={() => handlePageChange("files")}
+            onClick={() => setActivePage("files")}
             className={activePage === "files" ? styles.activeButton : styles.notActive}
           >
             Files
           </button>
           <div className={styles.verticalDivider}></div>
           <button
-            onClick={() => handlePageChange("roles")}
+            onClick={() => setActivePage("roles")}
             className={activePage === "roles" ? styles.activeButton : styles.notActive}
           >
             Roles
@@ -124,14 +64,16 @@ export default function Sidebar() {
       <div className={styles.selectBar}>
         <TextButton
           text={
-            selectedFiles.length === getAllFileIds(data.items || []).length
+            selectedFiles.length === getAllFileIds(fileData || []).length
               ? "Deselect All"
               : "Select All"
           }
           onClick={handleSelectAll}
         />
         <div className={styles.verticalDivider}></div>
-        <TextButton text={"Close all folders"} onClick={handleCloseAllFolders} />
+        <TextButton text={"Close all folders"} 
+        // onClick={handleCloseAllFolders}
+         />
       </div>
       <div className={`${styles.horizontalDivider} ${!isSidebarOpen ? styles.hidden : ""}`}></div>
       <div className={styles.closeButtonContainer}>
@@ -155,12 +97,24 @@ export default function Sidebar() {
       </div>
 
       <div className={styles.content}>
-        {activePage === "files" && data.items && data.items.length > 0 ? (
+      {console.log("fileData:", fileData)}
+
+        {activePage === "files" && fileData && fileData.length > 0 ? (
           <Files
-            data={data.items} 
+            data={fileData}
             selectedFiles={selectedFiles}
-            toggleFileSelection={toggleFileSelection}
+            toggleFileSelection={(file) => {
+              setSelectedFiles((prevSelectedFiles) =>
+                prevSelectedFiles.includes(file.id)
+                  ? prevSelectedFiles.filter((id) => id !== file.id)
+                  : [...prevSelectedFiles, file.id]
+              );
+            }}
             closeFoldersCounter={closeFoldersCounter}
+            openFolderInMainDiv={(folder) => {
+              console.log("Selected folder:", folder);
+              selectFolder(folder);
+            }}
           />
         ) : (
           <div>No files to display.</div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTheme } from "../ThemeContext"; // Assuming you have ThemeContext
+import { useTheme } from "../ThemeContext";
 import styles from "./Files.module.css";
 
 export default function FileItem({
@@ -7,18 +7,50 @@ export default function FileItem({
   selectedFiles,
   toggleFileSelection,
   closeFoldersCounter,
+  onDummyClick,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme } = useTheme(); // Get the current theme (light or dark)
+  const { theme } = useTheme();
+
+  const [clickTimeout, setClickTimeout] = useState(null);
 
   const handleToggleOpen = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation(); 
     setIsOpen((prevState) => !prevState);
   };
 
   const handleCheckboxChange = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation(); 
     toggleFileSelection(file);
+  };
+
+  const handleSingleClick = () => {
+    if (file.type !== "file") {
+      handleToggleOpen(); 
+    }
+  };
+
+  const handleDoubleClick = () => {
+    if (file.type !== "file") {
+      onDummyClick(file);
+    }
+  };
+
+  const handleClick = (e) => {
+    if (e) e.stopPropagation();
+
+    if (clickTimeout) {
+      clearTimeout(clickTimeout); 
+      setClickTimeout(null);
+      handleDoubleClick(); 
+    } else {
+      setClickTimeout(
+        setTimeout(() => {
+          handleSingleClick();
+          setClickTimeout(null);
+        }, 150) 
+      );
+    }
   };
 
   const isSelected = selectedFiles.includes(file.id);
@@ -67,19 +99,19 @@ export default function FileItem({
         stroke="#75ACDF"
         strokeWidth="7"
         strokeLinejoin="round"
-        />
-    </svg>  
+      />
+    </svg>
   );
 
   const folderIcon = theme === "light" ? lightThemeOpenIcon : darkThemeOpenIcon;
 
   return (
-    <div className={`${styles.fileItem}`}>
+    <div className={`${styles.fileItem}`} onClick={handleClick}>
       <div className={styles.itemContent}>
         {file.type !== "file" ? (
           <>
-            <span className={styles.expandIcon} onClick={handleToggleOpen}>
-              {folderIcon} 
+            <span className={styles.expandIcon}>
+              {folderIcon}
             </span>
             <input
               type="checkbox"
@@ -88,7 +120,7 @@ export default function FileItem({
               onClick={(e) => e.stopPropagation()}
               className={styles.checkbox}
             />
-            <span className={styles.folderName} onClick={handleToggleOpen}>
+            <span className={styles.folderName}>
               {file.name}
             </span>
           </>
@@ -118,6 +150,7 @@ export default function FileItem({
                 selectedFiles={selectedFiles}
                 toggleFileSelection={toggleFileSelection}
                 closeFoldersCounter={closeFoldersCounter}
+                onDummyClick={onDummyClick}
               />
             ))}
           </div>
