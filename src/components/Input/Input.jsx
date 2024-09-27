@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from './Input.module.css';
 
-export default function Input({ type, placeholder, onChange, value }) {
+export default function Input({ type, placeholder, onChange, value, onKeyDown }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -34,6 +34,7 @@ export default function Input({ type, placeholder, onChange, value }) {
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onKeyDown={onKeyDown}
         placeholder=""
         required
       />

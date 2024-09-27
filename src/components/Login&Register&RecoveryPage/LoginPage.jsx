@@ -14,6 +14,11 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
   const location = useLocation();
   const { theme, fetchData } = useTheme();
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
   const handleLoginChange = (e) => {
     setLogin(e.target.value);
   };
@@ -76,6 +81,7 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
             placeholder="Password"
             onChange={handlePasswordChange}
             value={password}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className={styles.downPart}>
