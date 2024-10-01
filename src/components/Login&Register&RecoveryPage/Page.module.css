@@ -129,3 +129,11 @@
 .p{
   color: var(--text-color)
 }
+.swal-popup{
+  background-color: var(--modal-background-color);
+  color: var(--text-color)
+}
+.swal-confirm-button{
+  background-color: var(--button-background-color);
+  color: var(--text-color);
+}
