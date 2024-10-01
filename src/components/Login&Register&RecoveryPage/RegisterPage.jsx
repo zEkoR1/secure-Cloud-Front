@@ -1,9 +1,18 @@
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import Button from "../Button/Button.jsx";
 import TextButton from "../Button/TextButton.jsx";
-import styles from "./Page.module.css";
 import Input from "../Input/Input.jsx";
+import styles from "./Page.module.css";
 import { useTheme } from "../ThemeContext.jsx";
-import { useState } from "react";
+import {
+  validateInputs,
+  handleFieldValidationError,
+} from "./validation.js"; 
+
+const MySwal = withReactContent(Swal);
+
 export default function RegisterPage({ switchToLogin, switchToRecovery }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,13 +23,22 @@ export default function RegisterPage({ switchToLogin, switchToRecovery }) {
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
   const registerUser = async (username, email, password) => {
+    if (!validateInputs(username, email, password)) {
+
+      return; 
+
+    }
+
     try {
       const response = await fetch(`${apiUrl}/api/user/`, {
         method: "POST",
@@ -34,32 +52,78 @@ export default function RegisterPage({ switchToLogin, switchToRecovery }) {
         }),
       });
 
-      // Log the response to check if it's in the expected format
-      console.log(response);
-
       const contentType = response.headers.get("Content-Type");
+      const data = contentType && contentType.includes("application/json")
+        ? await response.json()
+        : await response.text();
 
-      if (contentType && contentType.includes("application/json")) {
-        const data = await response.json(); // Parse JSON response
-        console.log("Registration successful", data);
-      } else {
-        const text = await response.text(); // Parse as plain text if not JSON
-        console.error("Registration failed:", text);
+      if (!response.ok) {
+        if (typeof data === "object" && data !== null) {
+          // Check for specific validation errors
+          if (data.errors) {
+            // Handle field-specific validation errors from the backend
+            handleFieldValidationError(data.errors);
+            return;
+          }
+
+          // If there is a general message, show it
+          if (data.message) {
+            MySwal.fire({
+              icon: "error",
+              title: "Registration Failed",
+              text: data.message,
+              customClass: {
+                popup: styles["swal-popup"],
+                confirmButton: styles["swal-confirm-button"],
+              },
+            });
+            return;
+          }
+        }
+
+        // Default fallback if there's no specific error or message
+        MySwal.fire({
+          icon: "error",
+          title: "Registration Failed",
+          text: "An unknown error occurred. Please try again later.",
+          customClass: {
+            popup: styles["swal-popup"],
+            confirmButton: styles["swal-confirm-button"],
+          },
+        });
+        return;
       }
+
+      // Success case
+      MySwal.fire({
+        icon: "success",
+        title: "Registration Successful",
+        text: `Welcome, ${username}! Your account has been created.`,
+        customClass: {
+          popup: styles["swal-popup"],
+          confirmButton: styles["swal-success-button"],
+        },
+      }).then(() => {
+        switchToLogin();
+      });
     } catch (error) {
-      console.error("Registration failed:", error.message || error);
+      MySwal.fire({
+        icon: "error",
+        title: "Registration Error",
+        text: error.message || "An unknown error occurred.",
+        customClass: {
+          popup: styles["swal-popup"],
+          confirmButton: styles["swal-confirm-button"],
+        },
+      });
     }
   };
 
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   document.body.className = theme === "dark" ? "dark-theme" : "";
+
   return (
     <div className={styles.divWrapper}>
-      {/* <button onClick={toggleTheme} className={styles.themeToggle}>
-        {" "}
-        Toggle theme{" "}
-      </button> */}
-
       <div className={styles.inputPart}>
         <h1 className={styles.welcome}> Register </h1>
         <Input
@@ -69,7 +133,7 @@ export default function RegisterPage({ switchToLogin, switchToRecovery }) {
         />
         <Input
           type={"text"}
-          placeholder={"Login"}
+          placeholder={"Email"}
           onChange={handleEmailChange}
         />
         <Input
@@ -78,6 +142,7 @@ export default function RegisterPage({ switchToLogin, switchToRecovery }) {
           onChange={handlePasswordChange}
         />
       </div>
+
       <div className={styles.downPart}>
         <Button
           text={"Register"}
