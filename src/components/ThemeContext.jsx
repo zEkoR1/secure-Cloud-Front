@@ -1,41 +1,57 @@
-import { useContext, createContext, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useContext, createContext, useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ThemeContext = createContext();
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("dark");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [fileData, setFileData] = useState([]);
+  const [flattenedFiles, setFlattenedFiles] = useState([]);
   const [selectedFolder, setSelectedFolder] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication status
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location
+  const location = useLocation();
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(prevState => !prevState);
+    setIsSidebarOpen((prevState) => !prevState);
   };
 
   const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
   const selectFolder = (folder) => {
     setSelectedFolder(folder);
   };
 
+  const FlattenFiles = (files) => {
+    const flatFiles = [];
+    const flatten = (items) => {
+      items.forEach((item) => {
+        if (item.type !== "file") {
+          flatten(item.children);
+        } else {
+          flatFiles.push(item);
+        }
+      });
+    };
+    flatten(files);
+    setFlattenedFiles(flatFiles);
+  };
+
   const fetchData = async () => {
-    console.log('Fetching data...');
+    console.log("Fetching data...");
     try {
       const response = await fetch(`${apiUrl}/api/files/`, {
-        credentials: 'include', 
+        credentials: "include",
       });
 
       if (response.status === 401) {
-        console.warn('Session expired or invalid. Redirecting to login.');
-        if (location.pathname !== '/') {
-          navigate('/', { state: { openLoginModal: true } });
+        console.warn("Session expired or invalid. Redirecting to login.");
+        if (location.pathname !== "/") {
+          navigate("/", { state: { openLoginModal: true } });
         }
         return;
       }
@@ -43,13 +59,16 @@ export const ThemeProvider = ({ children }) => {
       if (!response.ok) {
         const responseBody = await response.text();
         console.error("Response error:", responseBody);
-        throw new Error(`Failed to fetch files: ${responseBody || "Unknown error"}`);
+        throw new Error(
+          `Failed to fetch files: ${responseBody || "Unknown error"}`
+        );
       }
 
       const fetchedData = await response.json();
       console.log("Fetched Data:", fetchedData);
       setFileData(fetchedData.data.items);
       setSelectedFolder(fetchedData.data.items);
+      FlattenFiles(fetchedData.data.items); // Ensure correct data structure is passed
     } catch (error) {
       console.error("Error:", error.message || error);
     }
@@ -58,7 +77,7 @@ export const ThemeProvider = ({ children }) => {
   const checkAuthentication = async () => {
     try {
       const response = await fetch(`${apiUrl}/api/test/`, {
-        credentials: 'include',
+        credentials: "include",
       });
 
       console.log("Authentication response status:", response.status);
@@ -66,9 +85,8 @@ export const ThemeProvider = ({ children }) => {
       if (response.status === 404 || response.status === 401) {
         console.warn("User is not authenticated or auth endpoint not found.");
 
-        // Only navigate if not already on '/'
-        if (location.pathname !== '/') {
-          navigate('/', { state: { openLoginModal: true } });
+        if (location.pathname !== "/") {
+          navigate("/", { state: { openLoginModal: true } });
           console.log("Redirecting to / with openLoginModal state");
         } else {
           console.log("Already on /, not redirecting");
@@ -91,22 +109,22 @@ export const ThemeProvider = ({ children }) => {
 
         setIsAuthenticated(true);
 
-        navigate('/home');
+        navigate("/home");
       } else {
         console.warn("User is not authenticated, redirecting to login.");
 
-        if (location.pathname !== '/') {
-          navigate('/', { state: { openLoginModal: true } });
+        if (location.pathname !== "/") {
+          navigate("/", { state: { openLoginModal: true } });
           console.log("Redirecting to / with openLoginModal state");
         } else {
           console.log("Already on /, not redirecting");
         }
       }
     } catch (error) {
-      console.error('Error during authentication check:', error);
+      console.error("Error during authentication check:", error);
 
-      if (location.pathname !== '/') {
-        navigate('/', { state: { openLoginModal: true } });
+      if (location.pathname !== "/") {
+        navigate("/", { state: { openLoginModal: true } });
         console.log("Redirecting to / with openLoginModal state due to error");
       } else {
         console.log("Already on /, not redirecting");
@@ -119,7 +137,19 @@ export const ThemeProvider = ({ children }) => {
   }, [navigate]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isSidebarOpen, toggleSidebar, selectedFolder, selectFolder, fileData, fetchData }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        toggleTheme,
+        isSidebarOpen,
+        toggleSidebar,
+        selectedFolder,
+        selectFolder,
+        fileData,
+        flattenedFiles,
+        fetchData,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );
