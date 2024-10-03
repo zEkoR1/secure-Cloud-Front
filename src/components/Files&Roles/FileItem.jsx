@@ -1,3 +1,4 @@
+// FileItem.js
 import { useState, useEffect } from "react";
 import { useTheme } from "../ThemeContext";
 import styles from "./Files.module.css";
@@ -14,8 +15,7 @@ export default function FileItem({
   const [clickTimeout, setClickTimeout] = useState(null);
 
   // Handle opening/closing the folder
-  const handleToggleOpen = (e) => {
-    if (e) e.stopPropagation();
+  const handleToggleOpen = () => {
     setIsOpen((prevState) => !prevState);
   };
 
@@ -29,15 +29,7 @@ export default function FileItem({
 
   // Recursively toggle the selection of the folder and its children
   const toggleFileSelectionRecursive = (file, selectAll) => {
-    if (selectAll) {
-      // If selecting, only select children that are not selected
-      if (!selectedFiles.includes(file.id)) {
-        toggleFileSelection(file, selectAll);
-      }
-    } else {
-      // If deselecting, deselect all children regardless of their selection state
-      toggleFileSelection(file, selectAll);
-    }
+    toggleFileSelection(file, selectAll);
 
     if (file.children && file.children.length > 0) {
       file.children.forEach((child) => toggleFileSelectionRecursive(child, selectAll));
@@ -160,7 +152,7 @@ export default function FileItem({
               file={child}
               selectedFiles={selectedFiles}
               toggleFileSelection={toggleFileSelection}
-              closeFoldersCounter={closeFoldersCounter} 
+              closeFoldersCounter={closeFoldersCounter}
               onDummyClick={onDummyClick}
             />
           ))}

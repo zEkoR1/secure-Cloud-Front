@@ -1,3 +1,4 @@
+// ThemeContext.js
 import { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -5,15 +6,15 @@ const ThemeContext = createContext();
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [fileData, setFileData] = useState([]);
   const [flattenedFiles, setFlattenedFiles] = useState([]);
-  const [selectedFolder, setSelectedFolder] = useState(null);
+  const [selectedFolder, setSelectedFolder] = useState([]); // Initialize as an empty array
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
+ const [path, setPath] = useState([]); 
   const toggleSidebar = () => {
     setIsSidebarOpen((prevState) => !prevState);
   };
@@ -23,7 +24,11 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const selectFolder = (folder) => {
-    setSelectedFolder(folder);
+    setSelectedFolder((path) => [...path, folder]); 
+  };
+
+  const navigateUp = () => {
+    setSelectedFolder((path) => path.slice(0, -1)); 
   };
 
   const FlattenFiles = (files) => {
@@ -67,7 +72,8 @@ export const ThemeProvider = ({ children }) => {
       const fetchedData = await response.json();
       console.log("Fetched Data:", fetchedData);
       setFileData(fetchedData.data.items);
-      setSelectedFolder(fetchedData.data.items);
+      setSelectedFolder([]);
+      setPath([]);
       FlattenFiles(fetchedData.data.items); // Ensure correct data structure is passed
     } catch (error) {
       console.error("Error:", error.message || error);
@@ -145,9 +151,11 @@ export const ThemeProvider = ({ children }) => {
         toggleSidebar,
         selectedFolder,
         selectFolder,
+        navigateUp,
         fileData,
         flattenedFiles,
         fetchData,
+        path,
       }}
     >
       {children}
