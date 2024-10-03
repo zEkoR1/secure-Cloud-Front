@@ -1,3 +1,4 @@
+// Files.js
 import styles from "./Files.module.css";
 import FileItem from "./FileItem";
 
@@ -17,7 +18,7 @@ export default function Files({
             file={file}
             selectedFiles={selectedFiles}
             toggleFileSelection={toggleFileSelection}
-            closeFoldersCounter={closeFoldersCounter} // Pass counter to FileItem component
+            closeFoldersCounter={closeFoldersCounter}
             onDummyClick={openFolderInMainDiv}
           />
         ))}

@@ -1,20 +1,16 @@
+// Sidebar.js
 import styles from "./Sidebar.module.css";
 import TextButton from "../Button/TextButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DropDown from "./DropDown";
 import Files from "../Files&Roles/Files";
 import { useTheme } from "../ThemeContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
-  const apiUrl = import.meta.env.VITE_API_URL;
-
   const [activePage, setActivePage] = useState("files");
   const { isSidebarOpen, fileData, selectFolder, toggleSidebar } = useTheme();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [closeFoldersCounter, setCloseFoldersCounter] = useState(0); // Counter to trigger closing folders
-
-  const navigate = useNavigate();
 
   // Helper to get all file IDs
   const getAllFileIds = (items) => {
@@ -100,22 +96,32 @@ export default function Sidebar() {
       </div>
 
       <div className={styles.content}>
-        {console.log("fileData:", fileData)}
-
         {activePage === "files" && fileData && fileData.length > 0 ? (
           <Files
             data={fileData}
             selectedFiles={selectedFiles}
-            toggleFileSelection={(file) => {
-              setSelectedFiles((prevSelectedFiles) =>
-                prevSelectedFiles.includes(file.id)
-                  ? prevSelectedFiles.filter((id) => id !== file.id)
-                  : [...prevSelectedFiles, file.id]
-              );
+            toggleFileSelection={(file, selectAll) => {
+              // Handle selection/deselection
+              setSelectedFiles((prevSelectedFiles) => {
+                const getAllIds = (item) => {
+                  let ids = [item.id];
+                  if (item.children && item.children.length > 0) {
+                    item.children.forEach((child) => {
+                      ids = ids.concat(getAllIds(child));
+                    });
+                  }
+                  return ids;
+                };
+                const fileIds = getAllIds(file);
+                if (selectAll) {
+                  return [...new Set([...prevSelectedFiles, ...fileIds])];
+                } else {
+                  return prevSelectedFiles.filter((id) => !fileIds.includes(id));
+                }
+              });
             }}
-            closeFoldersCounter={closeFoldersCounter} // Pass counter to Files component
+            closeFoldersCounter={closeFoldersCounter}
             openFolderInMainDiv={(folder) => {
-              console.log("Selected folder:", folder);
               selectFolder(folder);
             }}
           />

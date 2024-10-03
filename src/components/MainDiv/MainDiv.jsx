@@ -1,56 +1,54 @@
+// MainDiv.js
 import { useTheme } from "../ThemeContext";
 import { useMemo } from "react";
 import styles from "./MainDiv.module.css";
 
 export default function MainDiv() {
-  const { isSidebarOpen, selectedFolder } = useTheme();
+  const { isSidebarOpen, selectedFolder, selectFolder, navigateUp, fileData } = useTheme();
 
   const mainDivClassName = useMemo(() => {
     return `${styles.mainDiv} ${isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`;
   }, [isSidebarOpen]);
 
-  console.log("Selected folder in MainDiv:", selectedFolder);
+  // Determine the current folder
+  const currentFolder =
+    selectedFolder.length === 0
+      ? { name: "Root", children: fileData }
+      : selectedFolder[selectedFolder.length - 1];
 
   return (
     <div className={mainDivClassName}>
-       {/* Handle the case where selectedFolder is an array of folders  */}
-      {Array.isArray(selectedFolder) && selectedFolder.length > 0 ? (
-        <div>
-          {selectedFolder.map((folder) => (
-            <div key={folder.id}>
-              <h2>{folder.name}</h2>
-              {folder.children && folder.children.length > 0 ? (
-                <div className={styles.folderContent}>
-                  {folder.children.map((child) => (
-                    <div key={child.id} className={styles.folderItem}>
-                      {child.type === "file" ? <span>📄 {child.name}</span> : <span>📁 {child.name}</span>}
-                    </div>
-                  ))}
-                </div>
+      {/* Display "Go Up" button if not at root */}
+      {selectedFolder.length > 0 && (
+        <button onClick={navigateUp} className={styles.goUpButton}>
+          Go Up
+        </button>
+      )}
+
+      <h2>{currentFolder.name}</h2>
+
+      {currentFolder.children && currentFolder.children.length > 0 ? (
+        <div className={styles.folderContent}>
+          {currentFolder.children.map((child) => (
+            <div
+              key={child.id}
+              className={styles.folderItem}
+              onDoubleClick={() => {
+                if (child.type !== "file") {
+                  selectFolder(child); // Navigate into the folder
+                }
+              }}
+            >
+              {child.type === "file" ? (
+                <span>📄 {child.name}</span>
               ) : (
-                <p>This folder is empty.</p>
+                <span>📁 {child.name}</span>
               )}
             </div>
           ))}
         </div>
-      ) : selectedFolder && selectedFolder.children ? (
-        // Handle the case where selectedFolder is a single folder with children
-        <div>
-          <h2>{selectedFolder.name}</h2>
-          {selectedFolder.children.length > 0 ? (
-            <div className={styles.folderContent}>
-              {selectedFolder.children.map((child) => (
-                <div key={child.id} className={styles.folderItem}>
-                  {child.type === "file" ? <span>📄 {child.name}</span> : <span>📁 {child.name}</span>}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>This folder is empty.</p>
-          )}
-        </div>
       ) : (
-        <p>No folder selected.</p>
+        <p>This folder is empty.</p>
       )}
     </div>
   );
