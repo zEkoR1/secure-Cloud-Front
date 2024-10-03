@@ -1,0 +1,68 @@
+/* Search.module.css */
+
+.div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 47rem;
+    margin: 0 auto;
+  }
+  
+ .input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: var(--background-color);
+    border-radius: 14px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    color: var(--text-color)
+  }
+  
+  .input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .ul {
+    position: absolute;
+    
+    top: 100%;
+    width: 100%;
+    max-height: 200px;
+    /* background-color: var(text); */
+    border: 1px solid var(--background-color);
+    border-radius: 4px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    margin-top: 8px
+  }
+  
+  .listItem {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: var(--text-color) !important;
+    background-color: var(--background-color) !important; 
+  }
+  
+  .listItem:hover {
+    background-color: var(--background-color);
+  }
+  
+  .listItem[aria-selected="true"] {
+    background-color: var(--background-color);
+    color :var(--text-color);
+    /* color: white; */
+  }
+  
+  .listItem:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
