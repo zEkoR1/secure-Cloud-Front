@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 import styles from "./Page.module.css"; 
 import withReactContent from "sweetalert2-react-content";  
-// Simple email validation function
 export const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -24,7 +23,7 @@ export const handleFieldValidationError = (errorMessage) => {
 
     if (errorMessage.includes("failed on the 'email' tag")) {
       userFriendlyMessage = "Please enter a valid email address.";
-    } else if (errorMessage.includes(`duplicate key value violates unique constraint "email"`)) {
+    } else if (errorMessage.includes(`duplicate key value violates unique constraint "idx_users_email"`)) {
       userFriendlyMessage = "This email is already in use. Please choose another one.";
     
   } else 
