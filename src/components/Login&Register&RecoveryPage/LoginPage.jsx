@@ -15,7 +15,7 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { theme, fetchData } = useTheme();
+  const { theme, fetchData, checkAuthentication } = useTheme();
   const MySwal = withReactContent(Swal);
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -30,15 +30,6 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
-  useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    const token = query.get("token");
-    if (token) {
-      localStorage.setItem("token", token);
-      navigate("/home");
-    }
-  }, [location, navigate]);
 
   const handleLogin = async () => {
     if (!validateLoginInput(login)) {
@@ -153,6 +144,7 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
               );
             }}
           />
+
           <div className={styles.registerPart}>
             <TextButton text="Forgot Password?" onClick={switchToRecovery} />
             <TextButton text="Register" onClick={switchToRegister} />

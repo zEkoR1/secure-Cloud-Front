@@ -146,6 +146,7 @@ export const ThemeProvider = ({ children }) => {
     <ThemeContext.Provider
       value={{
         theme,
+        checkAuthentication,
         toggleTheme,
         isSidebarOpen,
         toggleSidebar,
