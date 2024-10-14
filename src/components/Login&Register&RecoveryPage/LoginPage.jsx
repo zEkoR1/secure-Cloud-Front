@@ -90,6 +90,8 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
       console.log("Login successful", data);
       MySwal.fire({
         icon: "success",
+        timer: 1000,
+
         title: "Login Successful",
         text: "You have been logged in.",
         customClass: {

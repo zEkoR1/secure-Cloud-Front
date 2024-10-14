@@ -1,16 +1,18 @@
-// MainDiv.js
 import { useTheme } from "../ThemeContext";
 import { useMemo } from "react";
+import FolderIcon from "./FolderIcon";
 import styles from "./MainDiv.module.css";
 
 export default function MainDiv() {
-  const { isSidebarOpen, selectedFolder, selectFolder, navigateUp, fileData } = useTheme();
+  const { isSidebarOpen, selectedFolder, selectFolder, navigateUp, fileData } =
+    useTheme();
 
   const mainDivClassName = useMemo(() => {
-    return `${styles.mainDiv} ${isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`;
+    return `${styles.mainDiv} ${
+      isSidebarOpen ? styles.sidebarOpen : styles.sidebarClosed
+    }`;
   }, [isSidebarOpen]);
 
-  // Determine the current folder
   const currentFolder =
     selectedFolder.length === 0
       ? { name: "Root", children: fileData }
@@ -18,17 +20,20 @@ export default function MainDiv() {
 
   return (
     <div className={mainDivClassName}>
-      {/* Display "Go Up" button if not at root */}
-      {selectedFolder.length > 0 && (
-        <button onClick={navigateUp} className={styles.goUpButton}>
-          Go Up
-        </button>
-      )}
-
-      <h2>{currentFolder.name}</h2>
+      <h2 className={styles.folderName}>
+        {"<"}
+        {currentFolder.name}
+        {">"}
+      </h2>
 
       {currentFolder.children && currentFolder.children.length > 0 ? (
         <div className={styles.folderContent}>
+          {selectedFolder.length > 0 && (
+            <span onDoubleClick={navigateUp} className={styles.goUpButton}>
+              <FolderIcon />
+              <span className={styles.itemName}>...</span>{" "}
+            </span>
+          )}
           {currentFolder.children.map((child) => (
             <div
               key={child.id}
@@ -40,9 +45,16 @@ export default function MainDiv() {
               }}
             >
               {child.type === "file" ? (
-                <span>📄 {child.name}</span>
+                <span className={styles.file}>
+                  {" "}
+                  <FolderIcon isFile={"true"} />
+                  <span className={styles.itemName}> {child.name} </span>
+                </span>
               ) : (
-                <span>📁 {child.name}</span>
+                <span className={styles.folder}>
+                  {" "}
+                  <FolderIcon /> {child.name}{" "}
+                </span>
               )}
             </div>
           ))}
