@@ -1,8 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 .mainDiv {
   margin-top: 7.4rem;
   background-color: var(--side-bar-color);
   height: 130rem;
-  transition: margin-left 0.5s ease, width 0.5s ease; 
+  transition: margin-left 1s ease, width 1s ease; 
   top: 6.8rem;
   margin-right: 3rem;
 }
@@ -16,14 +18,39 @@
   margin-left: 3rem; 
   width: calc(100vw - 6rem);
 }
+.file {
+  cursor: pointer;
+}
+.folder{
+  cursor: pointer;
+}
+.folderName{
+  position: absolute;
+  top: 5rem;
+  color: var(--text-color);
+  z-index: 1000;
+  font-size: 24px;
+  font-family: 'Jost',  sans-serif;
+}
+.folderContent{
+  padding: 3.7rem;
+  display: grid;
+  column-gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1px)); 
 
-
-  /* .mainContent {
-    background-color: var(--background-color);
-    font-family: "Jost", sans-serif;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    z-index: -100;
-  } */
+}
+.folderItem{
+  color: var(--text-color);
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+.goUpButton{
+  color: var(--text-color);
+  text-align: center;
+  cursor: pointer;
+}
+.itemName{
+  font-family: "Jost", sans-serif;
+  font-size: 14px;
+}

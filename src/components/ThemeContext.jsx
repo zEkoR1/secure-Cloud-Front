@@ -1,7 +1,6 @@
-// ThemeContext.js
 import { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import Swal from "sweetalert2";
 const ThemeContext = createContext();
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -14,9 +13,32 @@ export const ThemeProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
- const [path, setPath] = useState([]); 
+  const [path, setPath] = useState([]);
   const toggleSidebar = () => {
     setIsSidebarOpen((prevState) => !prevState);
+  };
+  const logout = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include", 
+      });
+
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Logged Out",
+          text: "You have successfully logged out.",
+          timer: 1000, // Optional: Auto-close after 2 seconds
+          showConfirmButton: false, // No need for a confirm button
+        }).then(() => {
+          setIsAuthenticated(false);
+          navigate("/"); // Redirect to login page
+        });
+      }
+    } catch (error) {
+      console.log("Error happened during logout", error);
+    }
   };
 
   const toggleTheme = () => {
@@ -24,11 +46,11 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const selectFolder = (folder) => {
-    setSelectedFolder((path) => [...path, folder]); 
+    setSelectedFolder((path) => [...path, folder]);
   };
 
   const navigateUp = () => {
-    setSelectedFolder((path) => path.slice(0, -1)); 
+    setSelectedFolder((path) => path.slice(0, -1));
   };
 
   const FlattenFiles = (files) => {
@@ -146,6 +168,7 @@ export const ThemeProvider = ({ children }) => {
     <ThemeContext.Provider
       value={{
         theme,
+        logout,
         toggleTheme,
         isSidebarOpen,
         toggleSidebar,
