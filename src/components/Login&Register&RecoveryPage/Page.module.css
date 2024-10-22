@@ -10,9 +10,12 @@
     justify-content: center;
     align-items: center;
     background-color: var(--modal-background-color);
-    width: 35.5rem;
-    height: 46rem;
+    /* width: 35.5rem;
+    height: 46rem; */
+    width: 568px;
+    height:  736px;
     border-radius: 20px;
+    padding:50px;
 }
 .wrapperRecovery{
   height: 36rem;

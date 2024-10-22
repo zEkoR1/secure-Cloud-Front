@@ -4,6 +4,9 @@ import { useTheme } from "./components/ThemeContext";
 import { ThemeProvider } from "./components/ThemeContext";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
 import HomePage from "./components/HomePage";
+import Topbar from "./components/TopBar/TopBar";
+import Sidebar from "./components/Sidebar/Sidebar";
+import MainDiv from "./components/MainDiv/MainDiv";
 function App() {
   return (
     <Router>
@@ -21,7 +24,8 @@ function ThemedApp() {
     <div className={theme === "dark" ? "dark-theme" : ""}>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/home" element={[<Sidebar />, <Topbar/>, <MainDiv />]} />
+          
         </Routes>
     </div>
   );

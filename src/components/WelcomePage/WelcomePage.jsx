@@ -45,7 +45,9 @@ export default function WelcomePage() {
   useEffect(() => {
     // Only open modal if redirected with openLoginModal state
     if (location.state?.openLoginModal) {
-      console.log("Opening modal based on location state (redirect from /home)");
+      console.log(
+        "Opening modal based on location state (redirect from /home)"
+      );
 
       setModalIsOpen(true); // Open the modal
       setCurrentPage("login");
@@ -68,7 +70,8 @@ export default function WelcomePage() {
         }), url(${currentBackground})`,
       }}
     >
-      <button onClick={toggleTheme}>Toggle Theme</button>
+      {/* ЧУДО ПРИРОДЫ БЛЯТЬ */}
+      {/* <button className={styles.neTROGATI}></button> */}
       <div className={styles.buttonDiv}>
         <h1 className={styles.welcomeH}>
           We have your files <br />
@@ -125,7 +128,9 @@ export default function WelcomePage() {
             switchToRecovery={switchToRecovery}
           />
         )}
-        {currentPage === "recovery" && <Recovery switchToLogin={switchToLogin} />}
+        {currentPage === "recovery" && (
+          <Recovery switchToLogin={switchToLogin} />
+        )}
       </Modal>
     </div>
   );

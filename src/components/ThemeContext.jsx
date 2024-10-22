@@ -14,6 +14,7 @@ export const ThemeProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [path, setPath] = useState([]);
+  const [selectFile, setSelectFile] = useState (null);
   const toggleSidebar = () => {
     setIsSidebarOpen((prevState) => !prevState);
   };
@@ -179,6 +180,8 @@ export const ThemeProvider = ({ children }) => {
         flattenedFiles,
         fetchData,
         path,
+        setSelectFile, 
+        selectFile,
       }}
     >
       {children}
