@@ -11,7 +11,7 @@ export default function FileItem({
   onDummyClick,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme } = useTheme();
+  const { theme, toggleFileSelectionSpec, setOpenFileSpecs } = useTheme();
   const [clickTimeout, setClickTimeout] = useState(null);
 
   // Handle opening/closing the folder

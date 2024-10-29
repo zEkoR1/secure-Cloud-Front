@@ -24,7 +24,7 @@ function ThemedApp() {
     <div className={theme === "dark" ? "dark-theme" : ""}>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/home" element={[<Sidebar />, <Topbar/>, <MainDiv />]} />
+          <Route path="/home" element={<HomePage />} />
           
         </Routes>
     </div>

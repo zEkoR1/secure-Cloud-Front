@@ -1,0 +1,6 @@
+.div{
+    height: calc(100%-3.8rem);
+    width: 100%;
+    display: flex;
+
+}

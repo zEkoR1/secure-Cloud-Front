@@ -143,16 +143,19 @@ export default function LoginPage({ switchToRegister, switchToRecovery }) {
           <Button
             text="Continue with Google"
             showLogo={true}
+            // onClick={() => {
+            //   const width = 500;
+            //   const height = 600;
+            //   const left = window.screen.width / 2 - width / 2;
+            //   const top = window.screen.height / 2 - height / 2;
+            //   window.open(
+            //     `${apiUrl}/api/auth/google`,
+            //     "_blank",
+            //     `width=${width},height=${height},top=${top},left=${left}`
+            //   );
+            // }}
             onClick={() => {
-              const width = 500;
-              const height = 600;
-              const left = window.screen.width / 2 - width / 2;
-              const top = window.screen.height / 2 - height / 2;
-              window.open(
-                `${apiUrl}/auth/google`,
-                "_blank",
-                `width=${width},height=${height},top=${top},left=${left}`
-              );
+              window.location.assign(`${apiUrl}/api/auth/google`)
             }}
           />
           <div className={styles.registerPart}>
