@@ -3,7 +3,7 @@ import LightFolder from "./LightFolder";
 import DarkFolder from "./DarkFolder";
 import LightFile from "./LightFile";
 import DarkFile from "./DarkFile";
-import { useTheme } from "../ThemeContext";
+import { useTheme } from "../../ThemeContext";
 
 const FolderIcon = ({ isFile }) => {
   const { theme } = useTheme();

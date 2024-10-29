@@ -1,7 +1,12 @@
 /* Topbar.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Meddon&display=swap');
+
 .topbarDiv {
   position: fixed;
-  display: flex;
+  
+  border-bottom: 2.5px #989898 solid;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between; 
   left: 0;
@@ -9,22 +14,36 @@
   background-color: var(--side-bar-color);
   height: 3.8rem;
   width: 100%;
-  z-index: 1000;
-  padding: 0 1rem;
+  z-index: 10;
+  /* padding: 0 1rem; */
 }
 
 .sectionName {
   color: var(--text-color);
+  position: fixed;
   font-size: 1.5rem;
   margin: 0;
   padding: 0;
+  display: flex;
+  z-index: 10;
+  flex-direction:row;
+  align-items: center;
+  /* background-color: var(--side-bar-color);   */
+  font-family: "Jost", sans-serif;
+  margin-left: 25px;
+
+}
+.firstLetter{
+  font-family: 'Meddon', sans-serif;
+  font-size: 3.1rem;
+  z-index: 10;;
 }
 
-.sectionName::first-letter {
+/* .sectionName {
   font-family: "Meddon", "Jost";
   margin: 0;
   font-size: 3.1rem;
-}
+} */
 
 .searchContainer {
   flex-grow: 1;

@@ -9,7 +9,9 @@ export const ThemeProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [fileData, setFileData] = useState([]);
   const [flattenedFiles, setFlattenedFiles] = useState([]);
-  const [selectedFolder, setSelectedFolder] = useState([]); // Initialize as an empty array
+  const [selectedFolder, setSelectedFolder] = useState([]); 
+  const [openFileSpecs, setOpenFileSpecs] = useState(false)
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,7 +33,7 @@ export const ThemeProvider = ({ children }) => {
           title: "Logged Out",
           text: "You have successfully logged out.",
           timer: 1000, // Optional: Auto-close after 2 seconds
-          showConfirmButton: false, // No need for a confirm button
+          showConfirmButton: false, 
         }).then(() => {
           setIsAuthenticated(false);
           navigate("/"); // Redirect to login page
@@ -102,6 +104,21 @@ export const ThemeProvider = ({ children }) => {
       console.error("Error:", error.message || error);
     }
   };
+  const toggleFileSelectionSpec = (child) => {
+    if (selectFile?.id === child.id) {
+      setOpenFileSpecs((prevState) => !prevState);
+      
+      // If we are closing the specs, deselect the file
+      if (openFileSpecs) setSelectFile(null);
+    } else {
+      // If it's a new file, select it and open the specs
+      setSelectFile(child);
+      setOpenFileSpecs(true);
+    }
+  
+   
+  };
+  
 
   const checkAuthentication = async () => {
     try {
@@ -182,6 +199,8 @@ export const ThemeProvider = ({ children }) => {
         path,
         setSelectFile, 
         selectFile,
+        toggleFileSelectionSpec,
+        openFileSpecs,
       }}
     >
       {children}

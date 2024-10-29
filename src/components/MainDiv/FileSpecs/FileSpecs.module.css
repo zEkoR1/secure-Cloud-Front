@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Meddon&display=swap");
+
+.specsDiv {
+  position: relative;
+  height: 100%;
+  background-color: var(--side-bar-color);
+  width: 30%;
+  border-left: 2px solid #989898;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 40px 20px 40px;
+  align-items: flex-start;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fileName {
+  font-family: "Jost", sans-serif;
+  font-size: 24px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.specsList {
+  width: 100%;
+}
+
+.specItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.specItem dt {
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.specItem dd {
+  font-family: "Jost", sans-serif;
+  font-size: 18px;
+  color: var(--text-color);
+  margin: 0;
+  text-align: right;
+  flex: 1;
+}
+
+.divider {
+  align-self: stretch;
+  background-color: #989898;
+  width: 100%;
+  height: 2px;
+  margin: 20px 0;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-left: -12px;  
+}
+
+.actionButton {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
