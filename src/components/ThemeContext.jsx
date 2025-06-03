@@ -5,9 +5,11 @@ const ThemeContext = createContext();
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [fileData, setFileData] = useState([]);
+const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+  const stored = localStorage.getItem("isSidebarOpen");
+  return stored === null ? true : stored === "true";
+});  const [fileData, setFileData] = useState([]);
   const [flattenedFiles, setFlattenedFiles] = useState([]);
   const [selectedFolder, setSelectedFolder] = useState([]); 
   const [openFileSpecs, setOpenFileSpecs] = useState(false)
@@ -17,9 +19,13 @@ export const ThemeProvider = ({ children }) => {
   const location = useLocation();
   const [path, setPath] = useState([]);
   const [selectFile, setSelectFile] = useState (null);
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prevState) => !prevState);
-  };
+const toggleSidebar = () => {
+  setIsSidebarOpen((prevState) => {
+    const newState = !prevState;
+    localStorage.setItem("isSidebarOpen", newState);
+    return newState;
+  });
+};
   const logout = async () => {
     try {
       const response = await fetch(`${apiUrl}/api/auth/logout`, {
@@ -44,9 +50,11 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+const toggleTheme = () => {
+  const newTheme = theme === "light" ? "dark" : "light";
+  setTheme(newTheme);
+  localStorage.setItem("theme", newTheme);
+};
 
   const selectFolder = (folder) => {
     setSelectedFolder((path) => [...path, folder]);
@@ -119,12 +127,28 @@ export const ThemeProvider = ({ children }) => {
    
   };
   
+const fetchWithRefresh = async (input, init = {}, attemptRefresh = true) => {
+  let response = await fetch(input, { ...init, credentials: "include" });
 
+  if (response.status === 401 && attemptRefresh) {
+    // Try to refresh token
+    const refreshResponse = await fetch(`${apiUrl}/api/auth/refresh`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if (refreshResponse.ok) {
+      // Retry the original request once
+      response = await fetch(input, { ...init, credentials: "include" });
+    }
+  }
+
+  return response;
+};
   const checkAuthentication = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/test/`, {
-        credentials: "include",
-      });
+    const response = await fetchWithRefresh(`${apiUrl}/api/test/`);
+        
 
       console.log("Authentication response status:", response.status);
 

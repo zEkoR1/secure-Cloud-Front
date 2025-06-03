@@ -8,10 +8,10 @@ export default function Topbar() {
       <p className={styles.sectionName}> <span className={styles.firstLetter}>F</span> files</p>
       
       <div className={styles.searchContainer}>
-        {/* <Search /> */}
+        <Search />
       </div>
 
-      {/* <div className={styles.horizontalDivider}></div> */}
+      <div className={styles.horizontalDivider}></div>
     </div>
   );
 }
