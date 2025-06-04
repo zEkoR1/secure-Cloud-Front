@@ -1,4 +1,4 @@
-import styles from "./Topbar.module.css";
+import styles from "./TopBar.module.css";
 import Search from "./Search";
 
 export default function Topbar() {
